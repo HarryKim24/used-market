@@ -36,7 +36,7 @@ const Input: React.FC<InputProps> = ({
         placeholder=''
         type={type}
         className={`
-          w-full p-4 pt-6 font-light bg-white rounded-md outline-none
+          w-full p-4 pt-6 font-light border-2 bg-white rounded-md outline-none
           transition disabled:opacity-70 disabled:cursor-not-allowed
           ${formatPrice? 'pl-9' : 'pl-4'}
           ${errors[id] ? 'border-rose-500' : 'border-neutral-300'}
