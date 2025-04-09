@@ -24,12 +24,11 @@ export default async function RootLayout({
       <body className={inter.className}>
           <Navbar currentUser={currentUser} />
         {children}
+        <Script
+          src="//dapi.kakao.com/v2/maps/sdk.js?appkey=73a334cfdd1c4e9498d1812ea6445618&libraries=services,clusterer"
+          type="text/javascript"
+        />
       </body>
-      <Script
-  src="//dapi.kakao.com/v2/maps/sdk.js?appkey=73a334cfdd1c4e9498d1812ea6445618&libraries=services,clusterer"
-  type="text/javascript"
-/>
-
     </html>
   )
 }

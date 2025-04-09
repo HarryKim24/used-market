@@ -6,7 +6,6 @@ import Container from '@/components/Container';
 import Heading from '@/components/Heading';
 import ImageUpload from '@/components/ImageUpload';
 import Input from '@/components/Input'
-import KakaoMap from '@/components/KakaoMap';
 import dynamic from 'next/dynamic';
 import React, { useState } from 'react'
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
@@ -38,7 +37,7 @@ const ProductUploadPage = () => {
 
   const imageSrc = watch('imageSrc');
   const category = watch('category');
-
+  
   const latitude = watch('latitude');
   const longitude = watch('longitude');
 
@@ -47,12 +46,12 @@ const ProductUploadPage = () => {
   })
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-
+    
   }
 
   const setCustomValue = (id: string, value: any) => {
     setValue(id, value);
-  }
+  }     
 
   return (
     <Container>
@@ -61,7 +60,7 @@ const ProductUploadPage = () => {
       >
         <form
           className='flex flex-col gap-8'
-          onSubmit={handleSubmit(onsubmit)}
+          onSubmit={handleSubmit(onSubmit)}
         >
           <Heading
             title='Product Upload'
