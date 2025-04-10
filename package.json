@@ -13,6 +13,7 @@
     "@prisma/client": "^6.5.0",
     "axios": "^1.8.4",
     "bcryptjs": "^3.0.2",
+    "dayjs": "^1.11.13",
     "next": "13.5.8",
     "next-auth": "^4.24.11",
     "next-cloudinary": "^6.16.0",
