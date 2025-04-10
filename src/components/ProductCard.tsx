@@ -8,7 +8,7 @@ import { fromNow } from '@/helpers/dayjs';
 
 interface ProductCardProps {
   data: Product;
-  currentUser?: User;
+  currentUser?: User | null;
 }
 
 const ProductCard = ({ data, currentUser }: ProductCardProps) => {
