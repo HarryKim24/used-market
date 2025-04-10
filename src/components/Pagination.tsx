@@ -1,6 +1,7 @@
 'use client'
 import usePagination from '@lucasmogari/react-pagination';
 import React from 'react'
+import PaginationLink from './PaginationLink';
 
 interface PaginationProps {
   page: number;
@@ -23,24 +24,32 @@ const Pagination = ({ page, totalItems, perPage }: PaginationProps) => {
   const arr = new Array(totalPages + 2);
 
   return (
-    <div>
-      Item {fromItem}-{toItem}
+    <div className='flex items-center justify-center gap-2 mt-4'>
+      {/* Item {fromItem}-{toItem} */}
       {[...arr].map((_, i) => {
         const { page, disabled, current } = getPageItem(i);
 
         if (page === 'previous') {
-          return (<span key={i}>{"<"}</span>)
+          return (<PaginationLink 
+            key={i}
+            page={prevPage}
+            disabled={disabled}
+            >{"<"}</PaginationLink>)
         }
 
         if (page === 'next') {
-          return (<span key={i}>{">"}</span>)
+          return (<PaginationLink 
+            key={i}
+            page={nextPage}
+            disabled={disabled}
+          >{">"}</PaginationLink>)
         }
 
         if (page === 'gap') {
           return (<span key={i}>...</span>)
         }
 
-        return(<span key={i}>{page}</span>)
+        return(<PaginationLink active={current} page={page} key={i}>{page}</PaginationLink>)
       })}
     </div>
   )
