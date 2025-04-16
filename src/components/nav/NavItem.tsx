@@ -1,7 +1,12 @@
+import { signIn, signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
 import React from 'react'
 
 const NavItem = ({ mobile }: { mobile?: boolean }) => {
+
+  const { data: session, status } = useSession();
+  console.log({session}, status);
+
   return (
     <div className={`
       w-full 
@@ -14,14 +19,21 @@ const NavItem = ({ mobile }: { mobile?: boolean }) => {
         `}
       >
         <li className={`${mobile ? 'text-3xl w-full' : 'w-16'} py-2 font-[500] hover:font-[600] text-left cursor-pointer`}>
+          <Link href='/admin'>관리자</Link>
+        </li>
+        <li className={`${mobile ? 'text-3xl w-full' : 'w-16'} py-2 font-[500] hover:font-[600] text-left cursor-pointer`}>
           <Link href='/profile'>프로필</Link>
         </li>
+        {session?.user
+        ?
         <li className={`${mobile ? 'text-3xl w-full' : 'w-16'} py-2 font-[500] hover:font-[600] text-left cursor-pointer`}>
-          <button>로그인</button>
+          <button onClick={() => signOut()}>로그아웃</button>
         </li>
+        :
         <li className={`${mobile ? 'text-3xl w-full' : 'w-16'} py-2 font-[500] hover:font-[600] text-left cursor-pointer`}>
-          <button>로그아웃</button>
+          <button onClick={() => signIn()}>로그인</button>
         </li>
+        }
       </ul>
     </div>
   )
