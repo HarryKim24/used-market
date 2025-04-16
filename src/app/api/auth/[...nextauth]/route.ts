@@ -19,24 +19,24 @@ export const authOptions: NextAuthOptions = {
         username: { label: "Username", type: "text", placeholder: "jsmith" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials) {
-        if (
-          credentials?.username === "test@naver.com" &&
-          credentials?.password === "test1234"
-        ) {
-          return {
-            id: "1",
-            name: "J Smith",
-            email: "jsmith@example.com",
-          };
-        }
+      async authorize(credentials, req) {
 
-        return null;
+        const user = { id: '1', name: 'J Smith', email: 'jsmith@example.com', role: 'Admin' };
+
+        if (user) {
+          return user;
+        } else {
+          return null;
+        }
       },
     }),
   ],
   session: {
     strategy: 'jwt',
+  },
+  jwt: {
+    secret: process.env.JWT_SECRET,
+    maxAge: 30 * 24 * 60 * 60
   },
   callbacks: {
     async jwt({ token, user }) {
