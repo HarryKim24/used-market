@@ -1,8 +1,9 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
-import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import clientPromise from "../../../../../lib/mongodb";
+import email from "next-auth/providers/email";
+import bcrypt from "bcryptjs";
 
 export const authOptions: NextAuthOptions = {
   adapter: MongoDBAdapter(clientPromise),
@@ -10,19 +11,38 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        username: { label: "Username", type: "text", placeholder: "jsmith" },
-        password: { label: "Password", type: "password" },
+        email: { label: "이메일", type: "text" },
+        password: { label: "암호", type: "password" },
       },
       async authorize(credentials, req) {
-
-        const user = { id: '1', name: 'J Smith', email: 'jsmith@example.com', role: 'Admin' };
-
-        if (user) {
-          return user;
-        } else {
-          return null;
+        const client = await clientPromise;
+        const db = client.db();
+      
+        const { email, password } = credentials || {};
+      
+        if (!email || !password) {
+          throw new Error("이메일과 비밀번호를 입력해주세요.");
         }
-      },
+      
+        const user = await db.collection("users").findOne({ email });
+      
+        if (!user || !user.hashedPassword) {
+          throw new Error("계정이 존재하지 않거나 비밀번호가 틀렸습니다.");
+        }
+      
+        const isCorrectPassword = await bcrypt.compare(password, user.hashedPassword);
+      
+        if (!isCorrectPassword) {
+          throw new Error("비밀번호가 일치하지 않습니다.");
+        }
+      
+        return {
+          id: user._id.toString(),
+          name: user.name,
+          email: user.email,
+        };
+      }
+      
     }),
   ],
   session: {

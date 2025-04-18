@@ -65,7 +65,7 @@ const LoginPage = () => {
         <Input
           id="email"
           label="이메일 주소"
-          type="email"
+          type="text"
           disabled={isLoading}
           register={register}
           errors={errors}
