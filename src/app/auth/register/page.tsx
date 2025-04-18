@@ -49,8 +49,7 @@ const RegisterPage = () => {
       <LocalNav
         title="중고장터 계정"
         menuItems={[
-          { label: '로그인', onClick: () => console.log('로그인 클릭') },
-          { label: '중고장터 계정 생성', onClick: () => console.log('계정 생성 클릭') },
+          { label: '로그인', onClick: () => router.push('/auth/login') },
         ]}
       />
       <form
@@ -58,7 +57,7 @@ const RegisterPage = () => {
         className="w-120 space-y-6 py-8"
       >
         <h3 className="text-4xl font-bold text-center text-[#1d1d1f]">
-          중고장터 계정 생성
+          회원가입
         </h3>
         <div className="text-md text-center font-medium text-[#1d1d1f]">
           중고장터 계정을 가지고 계십니까?{' '}
@@ -103,9 +102,9 @@ const RegisterPage = () => {
           validate={(value: string) => {
             if (!value.trim()) return '비밀번호를 입력해주세요.'
             if (
-              !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/.test(value)
+              !/^(?=.*[a-zA-Z])[a-zA-Z0-9]{8,}$/.test(value)
             ) {
-              return '비밀번호는 8자 이상, 영문 대소문자, 숫자, 특수문자를 포함해야 합니다.'
+              return '비밀번호는 8자 이상이어야 하며, 영문을 반드시 포함해야 합니다.'
             }
             return true
           }}

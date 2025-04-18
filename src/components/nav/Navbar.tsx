@@ -45,7 +45,7 @@ const Navbar = () => {
               animate={{ opacity: menuOpen ? 0 : 1 }}
               transition={{ duration: 0.3, ease: 'easeInOut' }}
             >
-              <Link href="/">중고장터</Link>
+              <Link href="/">Logo</Link>
             </motion.div>
           </div>
           <div
