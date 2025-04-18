@@ -1,11 +1,14 @@
-import { signIn, signOut, useSession } from 'next-auth/react'
+import { User } from '@/types/user';
+import { signIn, signOut } from 'next-auth/react'
 import Link from 'next/link'
 import React from 'react'
 
-const NavItem = ({ mobile }: { mobile?: boolean }) => {
+interface NavItemProps {
+  mobile?: boolean;
+  currentUser?: User | null;
+}
 
-  const { data: session, status } = useSession();
-  console.log({session}, status);
+const NavItem = ({ mobile, currentUser }: NavItemProps) => {
 
   return (
     <div className={`
@@ -24,7 +27,7 @@ const NavItem = ({ mobile }: { mobile?: boolean }) => {
         <li className={`${mobile ? 'text-3xl w-full' : 'w-16'} py-2 font-[500] hover:font-[600] text-left cursor-pointer`}>
           <Link href='/profile'>프로필</Link>
         </li>
-        {session?.user
+        {currentUser
         ?
         <li className={`${mobile ? 'text-3xl w-full' : 'w-16'} py-2 font-[500] hover:font-[600] text-left cursor-pointer`}>
           <button onClick={() => signOut()}>로그아웃</button>
