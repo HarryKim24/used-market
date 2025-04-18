@@ -16,25 +16,22 @@ const Buttton = ({
 }: ButtonProps) => {
   return (
     <button 
-      type='submit' disabled={disabled} onClick={onClick}
+      type="submit"
+      disabled={disabled}
+      onClick={onClick}
       className={`
-        relative disabled:opacity-70
-        disabled:cursor-pointer rounded-lg
-        hover:opacity-80 transition w-full
-        ${outline ? 'bg-white' : 'bg-orange-500'}
-        ${outline ? 'border-black' : 'border-orange-500'}
-        ${outline ? 'text-black' : 'text-white'}
-        ${small ? 'text-sm' : 'text-md'}
-        ${small ? 'py-1' : 'py-3'}
-        ${small ? 'font-light' : 'font-semibold'}
-        ${small ? 'border-[1px]' : 'border-2'}
+        relative w-full rounded-xl px-6
+        ${small ? 'py-1.5 text-sm font-normal' : 'py-3 text-md font-medium'}
+        ${outline 
+          ? 'bg-white border border-[#dcdcdc] text-black hover:bg-[#f0f0f0]' 
+          : 'bg-[#0071e3] text-white border border-transparent hover:bg-[#0076df]'}
+        transition-all duration-200 ease-in-out
+        disabled:opacity-50 disabled:cursor-not-allowed
+        shadow-sm hover:shadow-md
       `}
     >
       {Icon && (
-        <Icon
-          size={24}
-          className='absolute left-4 top-3'
-        />
+        <Icon size={20} className="absolute left-4 top-1/2 -translate-y-1/2" />
       )}
       {label}
     </button>
