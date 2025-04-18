@@ -4,10 +4,17 @@ import React, { useEffect, useState } from 'react'
 import NavItem from './NavItem'
 import { AnimatePresence, motion } from 'framer-motion'
 import HamburgerButton from './HamburgerButton'
+import { User } from '@/types/user'
 
-const Navbar = () => {
-  const [menuOpen, setMenuOpen] = useState(false)
-  const [showMenu, setShowMenu] = useState(false)
+interface NavbarProps {
+  currentUser?: User | null;
+}
+
+const Navbar = ({ currentUser }: NavbarProps) => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
+
+  console.log('currentUser', currentUser);
 
   const handleHamburgerClick = () => {
     setMenuOpen(prev => !prev)
@@ -56,7 +63,7 @@ const Navbar = () => {
         </div>
 
         <div className="hidden sm:block">
-          <NavItem />
+          <NavItem currentUser={currentUser} />
         </div>
       </div>
 
@@ -71,7 +78,7 @@ const Navbar = () => {
               transition={{ duration: 0.4, ease: 'easeInOut' }}
               className="overflow-hidden"
             >
-              <NavItem mobile />
+              <NavItem mobile currentUser={currentUser} />
             </motion.div>
           )}
         </AnimatePresence>
