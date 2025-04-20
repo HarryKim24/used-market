@@ -58,7 +58,7 @@ const Input = ({
           }
         `}
       />
-
+      {!formatPrice &&
       <label
         className={`
           absolute ${formatPrice ? 'left-10' : 'left-4'}
@@ -73,7 +73,7 @@ const Input = ({
       >
         {label}
       </label>
-
+      }
       {errors[id]?.message && (
         <p className="mt-1 text-sm text-rose-500">
           {String(errors[id]?.message)}
