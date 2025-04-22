@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/nav/Navbar";
 import getCurrentUser from "./actions/getCurrentUser";
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -43,6 +44,9 @@ export default async function RootLayout({
       >
         <Navbar currentUser={currentUser} />
         {children}
+        <Script
+          src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8fc96c007f953a6ae72b68fa102c1cf3&libraries=services,clusterer&autoload=false"
+        />
       </body>
     </html>
   )

@@ -1,0 +1,32 @@
+import React from 'react'
+import { IconType } from 'react-icons'
+
+interface CategoryInputProps {
+  icon: IconType;
+  label: string;
+  selected?: boolean;
+  path: string;
+  onClick: (value: string) => void;
+}
+
+const CategoryInput = ({
+  icon: Icon, label, selected, onClick, path
+}: CategoryInputProps) => {
+  return (
+    <div 
+      onClick={() => onClick(path)}
+      className={`
+      rounded-xl border-1 p-4 flex flex-row gap-4
+      transition cursor-pointer
+      ${selected ? 'border-[#0071e3]' : 'border-neutral-500'}
+      `}
+    >
+      <Icon size={30} />
+      <div className='font-semibold'>
+        {label}
+      </div>
+    </div>
+  )
+}
+
+export default CategoryInput
