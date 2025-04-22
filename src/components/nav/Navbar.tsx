@@ -14,7 +14,10 @@ const Navbar = ({ currentUser }: NavbarProps) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
 
-  console.log('currentUser', currentUser);
+  useEffect(() => {
+    console.log('currentUser', currentUser);
+  }, [currentUser]);
+  
 
   const handleHamburgerClick = () => {
     setMenuOpen(prev => !prev)

@@ -16,8 +16,8 @@ const CategoryInput = ({
     <div 
       onClick={() => onClick(path)}
       className={`
-      rounded-xl border-1 p-4 flex flex-col gap-3 
-      hover:border-[#0071e3] transition cursor-pointer
+      rounded-xl border-1 p-4 flex flex-row gap-4
+      transition cursor-pointer
       ${selected ? 'border-[#0071e3]' : 'border-neutral-500'}
       `}
     >
