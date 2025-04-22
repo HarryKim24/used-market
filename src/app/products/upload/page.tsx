@@ -1,6 +1,7 @@
 'use client'
 import Buttton from '@/components/Buttton';
 import Container from '@/components/Container';
+import ImageUpload from '@/components/ImageUpload';
 import Input from '@/components/Input';
 import React, { useState } from 'react'
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
@@ -25,13 +26,19 @@ const ProductUploadPage = () => {
       category: '',
       latitude: 33.5563,
       longitude: 126.7958,
-      imageSSrc: '',
+      imageSrc: '',
       price: 0,
     }
   })
 
+  const imageSrc = watch('imageSrc');
+
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
 
+  }
+
+  const setCustomValue = (id: string, value: any) => {
+    setValue(id, value);
   }
 
   return (
@@ -43,6 +50,10 @@ const ProductUploadPage = () => {
           className='flex flex-col gap-8'
           onSubmit={handleSubmit(onSubmit)}
         >
+          <ImageUpload 
+            onChange={(value) => setCustomValue('imageSrc', value)}
+            value={imageSrc} 
+          />
           <div className='flex flex-col gap-2'>
             <h4 className='text-md font-medium'>제목</h4>
             <Input
