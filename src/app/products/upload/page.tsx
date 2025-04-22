@@ -1,5 +1,7 @@
 'use client'
 import Buttton from '@/components/Buttton';
+import { categories } from '@/components/categories/Categories';
+import CategoryInput from '@/components/categories/CategoryInput';
 import Container from '@/components/Container';
 import ImageUpload from '@/components/ImageUpload';
 import Input from '@/components/Input';
@@ -32,6 +34,7 @@ const ProductUploadPage = () => {
   })
 
   const imageSrc = watch('imageSrc');
+  const category = watch('category');
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
 
@@ -57,6 +60,7 @@ const ProductUploadPage = () => {
               value={imageSrc} 
             />
           </div>
+          <hr className='border-[#d2d2d7] py-2' />
           <div className='flex flex-col gap-2'>
             <h4 className='text-md font-medium'>제목</h4>
             <Input
@@ -102,7 +106,19 @@ const ProductUploadPage = () => {
               max-h-[50vh] overflow-y-auto
             ' 
           >
-            {/* Category */}
+            {
+              categories.map((item) => (
+                <div key={item.label} className='col-span-1'>
+                  <CategoryInput
+                    onClick={(category) => setCustomValue('category', category)}
+                    selected={category === item.path}
+                    label={item.label}
+                    icon={item.icon}
+                    path={item.path}
+                  />
+                </div>
+              ))
+            }
           </div>
           <hr className='border-[#d2d2d7] py-2' />
           {/* KakaoMap */}
