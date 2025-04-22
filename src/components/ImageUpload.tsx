@@ -17,10 +17,12 @@ const ImageUpload = ({
     onChange(result.info.secure_url);
   }
 
+  const uploadPreset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
+
   return (
     <CldUploadWidget
       onSuccess={handleUpload}
-      uploadPreset={'eqaijeo'}
+      uploadPreset={uploadPreset}
       options={{ maxFiles: 1 }}
     >
       {({ open }) => {
@@ -30,7 +32,7 @@ const ImageUpload = ({
             className='
               relative flex flex-col items-center justify-center gap-4 p-20
               transition border-1 border-dashed rounded-xl cursor-pointer
-              text-neutral-500 border-[#1d1d1f]
+              text-neutral-500 border-[#1d1d1f] overflow-hidden
             '
           >
             <TbPhotoPlus size={50} />

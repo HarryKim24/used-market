@@ -50,10 +50,13 @@ const ProductUploadPage = () => {
           className='flex flex-col gap-8'
           onSubmit={handleSubmit(onSubmit)}
         >
-          <ImageUpload 
-            onChange={(value) => setCustomValue('imageSrc', value)}
-            value={imageSrc} 
-          />
+          <div className='flex flex-col gap-2'>
+            <h4 className='text-md font-medium'>이미지 등록</h4>
+            <ImageUpload 
+              onChange={(value) => setCustomValue('imageSrc', value)}
+              value={imageSrc} 
+            />
+          </div>
           <div className='flex flex-col gap-2'>
             <h4 className='text-md font-medium'>제목</h4>
             <Input
