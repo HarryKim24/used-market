@@ -80,8 +80,6 @@ const ProductUploadPage = () => {
               required
             />
           </div>
-          <hr className='border-[#d2d2d7] py-2' />
-        
           <div className='flex flex-col gap-2'>
             <h4 className='text-md font-medium'>자세한 설명</h4>
             <Input
@@ -93,8 +91,6 @@ const ProductUploadPage = () => {
               required
             />
           </div>
-          <hr className='border-[#d2d2d7] py-2' />
-        
           <div className='flex flex-col gap-2'>
             <h4 className='text-md font-medium'>판매 가격</h4>
             <Input
@@ -109,11 +105,12 @@ const ProductUploadPage = () => {
           </div>
           <hr className='border-[#d2d2d7] py-2' />
     
-          <div
-            className='grid grid-cols-1 md:grid-cols-2 gap-3
-              max-h-[50vh] overflow-y-auto
-            ' 
-          >
+          <div className='flex flex-col gap-2'>
+            <h4 className='text-md font-medium'>카테고리</h4>
+            <div
+            className='grid grid-cols-2 gap-3
+            max-h-[50vh] overflow-y-auto
+            '>
             {
               categories.map((item) => (
                 <div key={item.label} className='col-span-1'>
@@ -127,6 +124,7 @@ const ProductUploadPage = () => {
                 </div>
               ))
             }
+            </div>
           </div>
           <hr className='border-[#d2d2d7] py-2' />
 
