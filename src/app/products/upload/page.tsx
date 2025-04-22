@@ -43,33 +43,44 @@ const ProductUploadPage = () => {
           className='flex flex-col gap-8'
           onSubmit={handleSubmit(onSubmit)}
         >
-          <Input
-            id='title'
-            label='제목'
-            disabled={isLoading}
-            register={register}
-            errors={errors}
-            required
-          />
+          <div className='flex flex-col gap-2'>
+            <h4 className='text-md font-medium'>제목</h4>
+            <Input
+              id='title'
+              label='글 제목'
+              disabled={isLoading}
+              register={register}
+              errors={errors}
+              required
+            />
+          </div>
           <hr className='border-[#d2d2d7] py-2' />
-          <Input
-            id='description'
-            label='설명'
-            disabled={isLoading}
-            register={register}
-            errors={errors}
-            required
-          />
+        
+          <div className='flex flex-col gap-2'>
+            <h4 className='text-md font-medium'>자세한 설명</h4>
+            <Input
+              id='description'
+              label='신뢰할 수 있는 거래를 위해 자세히 적어주세요.'
+              disabled={isLoading}
+              register={register}
+              errors={errors}
+              required
+            />
+          </div>
           <hr className='border-[#d2d2d7] py-2' />
-          <Input
-            id='price'
-            label='가격'
-            formatPrice
-            disabled={isLoading}
-            register={register}
-            errors={errors}
-            required
-          />
+        
+          <div className='flex flex-col gap-2'>
+            <h4 className='text-md font-medium'>판매 가격</h4>
+            <Input
+              id='price'
+              label='가격'
+              formatPrice
+              disabled={isLoading}
+              register={register}
+              errors={errors}
+              required
+            />
+          </div>
           <hr className='border-[#d2d2d7] py-2' />
     
           <div
