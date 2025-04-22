@@ -5,6 +5,7 @@ import CategoryInput from '@/components/categories/CategoryInput';
 import Container from '@/components/Container';
 import ImageUpload from '@/components/ImageUpload';
 import Input from '@/components/Input';
+import dynamic from 'next/dynamic';
 import React, { useState } from 'react'
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 
@@ -26,8 +27,8 @@ const ProductUploadPage = () => {
       title: '',
       description: '', 
       category: '',
-      latitude: 33.5563,
-      longitude: 126.7958,
+      latitude: 37.39542,
+      longitude: 127.11046,
       imageSrc: '',
       price: 0,
     }
@@ -35,6 +36,13 @@ const ProductUploadPage = () => {
 
   const imageSrc = watch('imageSrc');
   const category = watch('category');
+
+  const latitude = watch('latitude');
+  const longitude = watch('longitude');
+
+  const KakaoMap = dynamic(() => import('../../../components/kakao/KakaoMap'), {
+    ssr: false
+  });
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
 
@@ -121,7 +129,17 @@ const ProductUploadPage = () => {
             }
           </div>
           <hr className='border-[#d2d2d7] py-2' />
-          {/* KakaoMap */}
+
+          <div className='flex flex-col gap-2'>
+            <h4 className='text-md font-medium'>위치</h4>
+            <KakaoMap
+              setCustomValue={setCustomValue}
+              latitude={latitude}
+              longitude={longitude}
+            />
+          </div>
+          <hr className='border-[#d2d2d7] py-2' />
+
         <Buttton label='등록' />
         </form>
       </div>
