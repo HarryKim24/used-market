@@ -5,12 +5,15 @@ import CategoryInput from '@/components/categories/CategoryInput';
 import Container from '@/components/Container';
 import ImageUpload from '@/components/ImageUpload';
 import Input from '@/components/Input';
+import axios from 'axios';
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 
 const ProductUploadPage = () => {
 
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -45,7 +48,17 @@ const ProductUploadPage = () => {
   });
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-
+    setIsLoading(true);
+    axios.post('/api/products', data)
+      .then(response => {
+        router.push(`/products/${response.data.id}`);
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      })
   }
 
   const setCustomValue = (id: string, value: any) => {
