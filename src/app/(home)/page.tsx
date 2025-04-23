@@ -1,3 +1,4 @@
+import Container from "@/components/Container";
 import getProducts, { ProductsParams } from "../actions/getProducts";
 
 interface HomeProps {
@@ -8,11 +9,9 @@ export default async function Home({ searchParams }: HomeProps) {
 
   const products = await getProducts(searchParams);
 
-  console.log(products);
-
   return (
-    <main>
+    <Container localNavTitle='홈'>
       Home
-    </main>
+    </Container>
   );
 }
