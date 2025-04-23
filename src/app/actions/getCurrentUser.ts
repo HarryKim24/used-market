@@ -29,6 +29,7 @@ export default async function getCurrentUser() {
       name: currentUser.name,
       email: currentUser.email,
       createdAt: currentUser.createdAt?.toISOString?.() ?? null,
+      favoriteIds: currentUser.favoriteIds,
     };
 
   } catch (error) {

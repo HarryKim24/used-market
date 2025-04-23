@@ -11,7 +11,9 @@ interface useFavoriteProps {
 const useFavorite = ({
   productId, currentUser
 }: useFavoriteProps) => {
-
+  
+  const router = useRouter();
+  
   const hasFavorite = useMemo(() => {
     const list = currentUser?.favoriteIds || [];
 
@@ -20,8 +22,6 @@ const useFavorite = ({
 
   const toggleFavorite = async (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
-
-    const router = useRouter();
 
     if (!currentUser) {
       return;
