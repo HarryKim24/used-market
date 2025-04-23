@@ -21,7 +21,7 @@ const ProductCard = ({
       onClick={() => router.push(`/products/${data.id}`)}
       className='col-span-1 cursor-pointer group'
     >
-      <div className='flex flex-col w-full gap-2'>
+      <div className='flex flex-col w-full gap-8 bg-[#f5f5f7] rounded-xl p-4'>
         <div className='relative w-full overflow-hidden aspect-square rounded-xl'>
           <Image
             src={data.imageSrc}
@@ -38,16 +38,18 @@ const ProductCard = ({
             />
           </div>
         </div>
-        <div className='text-lg font-semibold'>
-          {data.title}
-        </div>
-        <div className='font-light text-neutral-500'>
-          {data.category}
+        <div>
+          <div className='text-2xl font-bold text-center'>
+            {data.title}
+          </div>
+          <div className='font-light text-neutral-500 text-center'>
+            {data.category}
+          </div>
         </div>
         <div>
-          <div>
-            {data.price}{" "}
-            <span className='font-light'>원</span>
+          <div className='text-center text-sm'>
+            <span>₩</span>
+            {data.price.toLocaleString()} 
           </div>
           <div>
             {/* {data.createdAt} */}

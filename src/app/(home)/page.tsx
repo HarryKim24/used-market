@@ -27,7 +27,7 @@ export default async function Home() {
       {products?.data.length === 0 ? (
         <EmptyState />
       ) : (
-        <div className="grid grid-cols-1 gap-8 pt-12 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6">
+        <div className="grid grid-cols-1 gap-2 pt-12 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6">
           {products.data.map((product) => (
             <ProductCard key={product.id} currentUser={currentUser} data={product} />
           ))}
