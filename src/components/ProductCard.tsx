@@ -29,6 +29,7 @@ const ProductCard = ({
             sizes='auto'
             className='object-cover w-full h-full transition duration-300 group-hover:scale-110'
             alt={data.title}
+            priority
           />
           <div className='absolute top-3 right-3'>
             <HeartButton

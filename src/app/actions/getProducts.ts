@@ -6,28 +6,28 @@ export interface ProductsParams {
   category?: string;
 }
 
-export default async function getProducts(params: ProductsParams) {
+export default async function getProducts(params: ProductsParams = {}) {
   try {
-    const { latitude, longitude, category } = params;
+    const {
+      latitude = undefined,
+      longitude = undefined,
+      category = undefined
+    } = params;
 
     let query: any = {};
 
-    if (category) {
-      query.category = category;
-    }
-
+    if (category) query.category = category;
     if (latitude) {
       query.latitude = {
-        gte: Number(latitude) - 0.01,
-        lte: Number(latitude) + 0.01,
-      }
+        $gte: Number(latitude) - 0.01,
+        $lte: Number(latitude) + 0.01,
+      };
     }
-
     if (longitude) {
       query.longitude = {
-        gte: Number(longitude) - 0.01,
-        lte: Number(longitude) + 0.01,
-      }
+        $gte: Number(longitude) - 0.01,
+        $lte: Number(longitude) + 0.01,
+      };
     }
 
     const client = await clientPromise;
@@ -37,10 +37,13 @@ export default async function getProducts(params: ProductsParams) {
       .sort({ createdAt: -1 })
       .toArray();
 
-    return {
-      data: products,
-    }
-    
+    const serializedProducts = products.map(({ _id, ...product }) => ({
+      ...product,
+      id: _id.toString(),
+      createdAt: product.createdAt?.toISOString() || null,
+    }));
+
+    return { data: serializedProducts };
 
   } catch (error: any) {
     throw new Error(error);
