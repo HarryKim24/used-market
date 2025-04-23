@@ -3,6 +3,7 @@ import { User } from '@/types/user';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React from 'react'
+import HeartButton from './HeartButton';
 
 interface ProductCardProps {
   data: any;
@@ -30,7 +31,10 @@ const ProductCard = ({
             alt={data.title}
           />
           <div className='absolute top-3 right-3'>
-
+            <HeartButton
+              productId={data.id}
+              currentUser={currentUser}
+            />
           </div>
         </div>
         <div className='text-lg font-semibold'>
