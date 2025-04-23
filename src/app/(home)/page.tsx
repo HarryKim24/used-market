@@ -11,7 +11,7 @@ interface HomeProps {
 export default async function Home({ searchParams }: HomeProps) {
 
   const products = await getProducts(searchParams);
-  const curretnUesr = await getCurrentUser();
+  const currentUser = await getCurrentUser();
 
   return (
     <Container localNavTitle='홈'>
@@ -25,7 +25,7 @@ export default async function Home({ searchParams }: HomeProps) {
             {
               products.data.map((product) => (
                 <ProductCard
-                  currentUser={curretnUesr}
+                  currentUser={currentUser}
                   key={product.id}
                   data={product}
                 />
