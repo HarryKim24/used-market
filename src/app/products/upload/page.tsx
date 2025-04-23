@@ -66,7 +66,7 @@ const ProductUploadPage = () => {
   }
 
   return (
-    <Container>
+    <Container localNavTitle='상품 업로드'>
       <div
         className='w-120 max-w-screen-lg mx-auto'
       >

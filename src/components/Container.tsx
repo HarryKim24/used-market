@@ -2,14 +2,15 @@ import React from 'react'
 import LocalNav from './LocalNav';
 
 interface ContainerProps {
+  localNavTitle: string;
   children: React.ReactNode;
 }
 
-const Container = ({ children }: ContainerProps) => {
+const Container = ({ localNavTitle, children }: ContainerProps) => {
   return (
     <div className='bg-white sm:px-10 lg:px-20'>
       <LocalNav
-        title="상품 업로드"
+        title={localNavTitle}
       />
       <div
         className='mx-w-[2520px] mx-auto xl:px-20 md:px-10 sm:px-2 px-4 py-6'

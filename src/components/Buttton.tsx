@@ -27,7 +27,6 @@ const Buttton = ({
           : 'bg-[#0071e3] text-white border border-transparent hover:bg-[#0076df]'}
         transition-all duration-200 ease-in-out
         disabled:opacity-50 disabled:cursor-not-allowed
-        shadow-sm hover:shadow-md
       `}
     >
       {Icon && (
