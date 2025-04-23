@@ -45,7 +45,9 @@ export async function POST(request: Request) {
 
     const result = await db.collection("products").insertOne(newProduct);
 
-    return NextResponse.json(result);
+    return NextResponse.json({
+      id: result.insertedId.toString(),
+    });
   } catch (error) {
     return NextResponse.error();
   }
