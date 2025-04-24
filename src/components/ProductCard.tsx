@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React from 'react'
 import HeartButton from './HeartButton';
+import { fromNow } from '@/helpers/dayjs';
 
 interface ProductCardProps {
   data: any;
@@ -21,7 +22,7 @@ const ProductCard = ({
       onClick={() => router.push(`/products/${data.id}`)}
       className='col-span-1 cursor-pointer group'
     >
-      <div className='flex flex-col w-full gap-8 bg-[#f5f5f7] rounded-xl p-4'>
+      <div className='flex flex-col w-full gap-6 bg-[#f5f5f7] rounded-xl p-4'>
         <div className='relative w-full overflow-hidden aspect-square rounded-xl'>
           <Image
             src={data.imageSrc}
@@ -46,13 +47,13 @@ const ProductCard = ({
             {data.category}
           </div>
         </div>
-        <div>
-          <div className='text-center text-sm'>
+        <div className='text-center'>
+          <div className='text-lg p-2'>
             <span>₩</span>
             {data.price.toLocaleString()} 
           </div>
-          <div>
-            {/* {data.createdAt} */}
+          <div className='text-xs text-neutral-500'>
+            {fromNow(data.createdAt)}
           </div>
         </div>
       </div>
