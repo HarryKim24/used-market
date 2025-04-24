@@ -16,13 +16,13 @@ const CategoryBox = ({
     <Link href={`/?category=${path}`}>
       <div
         className={`
-          flex flex-col items-center justify-center px-4 py-2
-          rounded-xl transition
-          ${selected ? 'text-neutral-800 font-semibold' : 'text-neutral-500'}
+          flex flex-col items-center justify-center px-3 py-2
+          rounded-xl transition hover:text-neutral-700 
+          ${selected ? 'text-neutral-700' : 'text-neutral-500'}
         `}
       >
         <Icon size={28} className="mb-1" />
-        <span className="text-sm">{label}</span>
+        <span className="text-sm truncate">{label}</span>
       </div>
     </Link>
   )

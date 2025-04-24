@@ -62,19 +62,13 @@ export const categories = [
 ];
 
 const Categories = () => {
-
   const params = useSearchParams();
   const category = params?.get('category');
 
   return (
-    <div
-      className='
-        flex flex-row items-center justify-between overflow-auto
-        mx-5
-      '
-    >
-      {
-        categories.map((item) => (
+    <div className="overflow-x-auto w-full">
+      <div className="flex flex-row justify-center gap-6 min-w-max mx-auto">
+        {categories.map((item) => (
           <CategoryBox
             key={item.label}
             label={item.label}
@@ -82,10 +76,10 @@ const Categories = () => {
             path={item.path}
             selected={category === item.path}
           />
-        ))
-      }
+        ))}
+      </div>
     </div>
-  )
-}
+  );
+};
 
 export default Categories
