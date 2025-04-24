@@ -8,7 +8,7 @@ interface ContainerProps {
 
 const Container = ({ localNavTitle, children }: ContainerProps) => {
   return (
-    <div className='bg-white sm:px-10 lg:px-20'>
+    <div className='min-h-[calc(100vh-56px)] bg-white sm:px-10 lg:px-20'>
       <LocalNav
         title={localNavTitle}
       />
