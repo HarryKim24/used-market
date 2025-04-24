@@ -6,19 +6,17 @@ import { useRouter } from 'next/navigation';
 interface EmptyStateProps {
   title?: string;
   subtitle?: string;
-  showReset?: boolean;
 }
 
 const EmptyState = ({
   title = '일치하는 상품이 없습니다.',
   subtitle = '일부 필터를 변경하거나 제거해 보세요.',
-  showReset
 }: EmptyStateProps) => {
 
   const router = useRouter();
 
   return (
-    <div className='min-h-[calc(100vh-56px-45px-48px)] flex flex-col gap-4 justify-content items-center'>
+    <div className='min-h-[calc(100vh-56px-45px-48px)] flex flex-col gap-4 justify-center items-center'>
       <p className='text-3xl font-bold'>{title}</p>
       <p className='text-lg font-medium'>{subtitle}</p>
       <div className='mt-4 rounded-full overflow-hidden'>
@@ -26,15 +24,6 @@ const EmptyState = ({
           label='모든 필터 제거' 
           onClick={() => router.push('/')}
         />
-      </div>
-      <div className='mt-4 rounded-full overflow-hidden'>
-        {
-          showReset &&
-          <Buttton 
-            outline label='모든 필터 제거' 
-            onClick={() => router.push('/')}
-          />
-        }
       </div>
     </div>
   )
