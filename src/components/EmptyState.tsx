@@ -16,7 +16,7 @@ const EmptyState = ({
   const router = useRouter();
 
   return (
-    <div className='min-h-[calc(100vh-56px-45px-48px)] flex flex-col gap-4 justify-center items-center'>
+    <div className='min-h-[calc(100vh-56px-45px-48px)] mt-20 flex flex-col gap-4 items-center'>
       <p className='text-3xl font-bold'>{title}</p>
       <p className='text-lg font-medium'>{subtitle}</p>
       <div className='mt-4 rounded-full overflow-hidden'>
