@@ -2,6 +2,7 @@ import { User } from "@/types/user";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useMemo } from "react";
+import { toast } from "react-toastify";
 
 interface useFavoriteProps {
   productId: string;
@@ -24,6 +25,7 @@ const useFavorite = ({
     e.stopPropagation();
 
     if (!currentUser) {
+      toast.warn('로그인이 필요합니다.');
       return;
     }
 
@@ -39,8 +41,10 @@ const useFavorite = ({
       await request();
       router.refresh();
 
-    } catch (err) {
+      toast.success('성공했습니다.');
 
+    } catch (err) {
+      toast.error('실패했습니다.');
     }
   }
 

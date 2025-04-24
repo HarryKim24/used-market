@@ -1,3 +1,5 @@
+'use client'
+import { useSearchParams } from 'next/navigation';
 import React from 'react'
 import { BsWatch } from 'react-icons/bs';
 import { FaComputer } from 'react-icons/fa6';
@@ -6,6 +8,7 @@ import { IoCarSport } from 'react-icons/io5';
 import { MdLocalLaundryService, MdOutlineSportsTennis } from 'react-icons/md';
 import { PiHairDryer } from 'react-icons/pi';
 import { RiSofaLine } from 'react-icons/ri';
+import CategoryBox from './CategoryBox';
 
 export const categories = [
   {
@@ -59,11 +62,24 @@ export const categories = [
 ];
 
 const Categories = () => {
+  const params = useSearchParams();
+  const category = params?.get('category');
+
   return (
-    <div>
-      Categories
+    <div className="overflow-x-auto w-full">
+      <div className="flex flex-row justify-center gap-6 min-w-max mx-auto">
+        {categories.map((item) => (
+          <CategoryBox
+            key={item.label}
+            label={item.label}
+            icon={item.icon}
+            path={item.path}
+            selected={category === item.path}
+          />
+        ))}
+      </div>
     </div>
-  )
-}
+  );
+};
 
 export default Categories
