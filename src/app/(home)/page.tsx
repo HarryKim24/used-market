@@ -11,7 +11,7 @@ export default async function Home() {
   return (
     <Container>
       <Categories />
-      <ProductList products={products.data} currentUser={currentUser} />
+      <ProductList products={products} currentUser={currentUser} />
     </Container>
   );
 }

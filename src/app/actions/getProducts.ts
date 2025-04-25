@@ -3,7 +3,6 @@ import clientPromise from "../../../lib/mongodb";
 export interface ProductsParams {
   latitude?: number;
   longitude?: number;
-  category?: string;
 }
 
 export default async function getProducts(params: ProductsParams = {}) {
@@ -11,18 +10,17 @@ export default async function getProducts(params: ProductsParams = {}) {
     const {
       latitude = undefined,
       longitude = undefined,
-      category = undefined
     } = params;
 
     let query: any = {};
 
-    if (category) query.category = category;
     if (latitude) {
       query.latitude = {
         $gte: Number(latitude) - 0.01,
         $lte: Number(latitude) + 0.01,
       };
     }
+
     if (longitude) {
       query.longitude = {
         $gte: Number(longitude) - 0.01,
@@ -32,7 +30,9 @@ export default async function getProducts(params: ProductsParams = {}) {
 
     const client = await clientPromise;
     const db = client.db();
-    const products = await db.collection("products")
+    const collection = db.collection("products");
+
+    const products = await collection
       .find(query)
       .sort({ createdAt: -1 })
       .toArray();
@@ -43,7 +43,10 @@ export default async function getProducts(params: ProductsParams = {}) {
       createdAt: product.createdAt?.toISOString() || null,
     }));
 
-    return { data: serializedProducts };
+    return {
+      data: serializedProducts,
+      totalItems: serializedProducts.length,
+    };
 
   } catch (error: any) {
     throw new Error(error);
