@@ -39,7 +39,7 @@ const PaginationLink = ({
       href={{ query: updatedQuery }} 
       className={`
         p-2 text-2xl
-        ${active ? 'font-bold text-orange-500' : 'text-gray-500'}
+        ${active ? 'font-bold text-gray-700' : 'text-gray-500'}
         ${disabled ? 'pointer-events-none text-neutral-300' : ''}
       `}
     >
