@@ -32,10 +32,12 @@ export default async function getProducts(params: ProductsParams = {}) {
 
     const client = await clientPromise;
     const db = client.db();
-    const products = await db.collection("products")
-      .find(query)
-      .sort({ createdAt: -1 })
-      .toArray();
+    const collection = db.collection("products");
+
+    const [products, totalItems] = await Promise.all([
+      collection.find(query).sort({ createdAt: -1 }).toArray(),
+      collection.countDocuments(query),
+    ]);
 
     const serializedProducts = products.map(({ _id, ...product }) => ({
       ...product,
@@ -43,7 +45,10 @@ export default async function getProducts(params: ProductsParams = {}) {
       createdAt: product.createdAt?.toISOString() || null,
     }));
 
-    return { data: serializedProducts };
+    return {
+      data: serializedProducts,
+      totalItems,
+    };
 
   } catch (error: any) {
     throw new Error(error);
