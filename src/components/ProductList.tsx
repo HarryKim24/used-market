@@ -17,24 +17,29 @@ interface ProductListProps {
 
 const ProductList = ({ products, currentUser }: ProductListProps) => {
   const searchParams = useSearchParams();
-  const category = searchParams.get('category');
-  const page = searchParams?.get('page');
-  const pageNum = typeof page === 'string' ? Number(page) : 1;
 
+  const pageParam = searchParams.get('page');
+  const category = searchParams.get('category');
+
+  const page = typeof pageParam === 'string' ? Number(pageParam) : 1;
   const filtered = category
-    ? products.data.filter(product => product.category === category)
+    ? products.data.filter((item) => item.category === category)
     : products.data;
 
-  if (filtered.length === 0) {
-    return <EmptyState />;
-  }
+  const paged = filtered.slice(
+    (page - 1) * PRODUCTS_PER_PAGE,
+    page * PRODUCTS_PER_PAGE
+  );
+
+  if (paged.length === 0) return <EmptyState />;
 
   return (
     <>
-      <div className="grid grid-cols-1 gap-2 pt-12 
+      <div
+        className="grid grid-cols-1 gap-2 pt-12 
         sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6"
       >
-        {filtered.map((product) => (
+        {paged.map((product) => (
           <ProductCard
             key={product.id}
             currentUser={currentUser}
@@ -42,13 +47,14 @@ const ProductList = ({ products, currentUser }: ProductListProps) => {
           />
         ))}
       </div>
-      <Pagination 
-        page={pageNum} 
-        totalItems={products.totalItems}
+
+      <Pagination
+        page={page}
+        totalItems={filtered.length}
         perPage={PRODUCTS_PER_PAGE}
       />
     </>
   );
-}
+};
 
 export default ProductList;
