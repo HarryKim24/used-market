@@ -10,7 +10,7 @@ interface ButtonProps {
   icon?: IconType;
 }
 
-const Buttton = ({
+const Button = ({
   label, onClick, disabled,
   outline, small, icon: Icon
 }: ButtonProps) => {
@@ -37,4 +37,4 @@ const Buttton = ({
   )
 }
 
-export default Buttton;
+export default Button;

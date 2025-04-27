@@ -43,7 +43,6 @@ export default async function getProductById(params: Params) {
     };
 
   } catch (error: any) {
-    console.error("Failed to fetch product:", error);
-    throw new Error("Failed to fetch product");
+    throw new Error(error);
   }
 }

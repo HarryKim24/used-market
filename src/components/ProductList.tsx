@@ -1,11 +1,11 @@
-'use client'
+"use client";
 
-import { useSearchParams } from 'next/navigation';
-import EmptyState from '@/components/EmptyState';
-import ProductCard from './ProductCard';
-import { User } from '@/types/user';
-import Pagination from './Pagination';
-import { PRODUCTS_PER_PAGE } from '@/constants';
+import { useSearchParams } from "next/navigation";
+import EmptyState from "@/components/EmptyState";
+import ProductCard from "./products/ProductCard";
+import { User } from "@/types/user";
+import Pagination from "./Pagination";
+import { PRODUCTS_PER_PAGE } from "@/constants";
 
 interface ProductListProps {
   products: {
@@ -18,10 +18,10 @@ interface ProductListProps {
 const ProductList = ({ products, currentUser }: ProductListProps) => {
   const searchParams = useSearchParams();
 
-  const pageParam = searchParams.get('page');
-  const category = searchParams.get('category');
+  const pageParam = searchParams.get("page");
+  const category = searchParams.get("category");
 
-  const page = typeof pageParam === 'string' ? Number(pageParam) : 1;
+  const page = typeof pageParam === "string" ? Number(pageParam) : 1;
   const filtered = category
     ? products.data.filter((item) => item.category === category)
     : products.data;
