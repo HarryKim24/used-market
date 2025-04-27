@@ -26,7 +26,7 @@ const ProductCard = ({ data, currentUser }: ProductCardProps) => {
             fill
             sizes="auto"
             className="object-cover w-full h-full transition duration-300 group-hover:scale-110"
-            alt={data.title}
+            alt={`${data.title} image`}
             priority
           />
           <div className="absolute top-3 right-3">
