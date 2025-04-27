@@ -1,5 +1,6 @@
 'use client'
 import Button from '@/components/Button';
+import { categories } from '@/components/categories/Categories';
 import Container from '@/components/Container';
 import ProductHead from '@/components/products/ProductHead';
 import ProductInfo from '@/components/products/ProductInfo';
@@ -23,6 +24,8 @@ const ProductClient = ({
     ssr: false
   });
 
+  const category = categories.find((item) => item.path === product.category);
+
   return (
     <Container>
       <div className="max-w-screen-lg mx-auto">
@@ -36,7 +39,12 @@ const ProductClient = ({
           <div
             className='grid grid-cols-1 mt-6 md:grid-cols-2 md:gap-10'
           >
-            <ProductInfo />
+            <ProductInfo
+              user={product.user}
+              category={category!}
+              createdAt={product.createdAt}
+              description={product.description}
+            />
             <div>
               <KakaoMap 
                 detailPage
