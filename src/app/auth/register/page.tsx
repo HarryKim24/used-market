@@ -1,16 +1,16 @@
-'use client'
+"use client";
 
-import React, { useState } from 'react'
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
-import Link from 'next/link'
-import Buttton from '@/components/Buttton'
-import Input from '@/components/Input'
-import LocalNav from '@/components/LocalNav'
-import axios from 'axios'
-import { useRouter } from 'next/navigation'
+import React, { useState } from "react";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import Link from "next/link";
+import Input from "@/components/Input";
+import LocalNav from "@/components/nav/LocalNav";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import Button from "@/components/Button";
 
 const RegisterPage = () => {
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const {
@@ -22,45 +22,42 @@ const RegisterPage = () => {
     mode: "onSubmit",
     reValidateMode: "onSubmit",
     defaultValues: {
-      name: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
     },
-  })
+  });
 
   const onSubmit: SubmitHandler<FieldValues> = async (body) => {
     setIsLoading(true);
     try {
-      const { data } = await axios.post('/api/register', body);
+      const { data } = await axios.post("/api/register", body);
       console.log(data);
-      router.push('/auth/login');
+      router.push("/auth/login");
     } catch (error) {
       console.log(error);
     } finally {
       setIsLoading(false);
     }
-  }
+  };
 
-  const password = watch('password')
+  const password = watch("password");
 
   return (
     <section className="min-h-[calc(100vh-56px)] bg-white place-items-center sm:px-10 lg:px-20">
       <LocalNav
         title="중고장터 계정"
         menuItems={[
-          { label: '로그인', onClick: () => router.push('/auth/login') },
+          { label: "로그인", onClick: () => router.push("/auth/login") },
         ]}
       />
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="w-120 space-y-6 py-8"
-      >
+      <form onSubmit={handleSubmit(onSubmit)} className="w-120 space-y-6 py-8">
         <h3 className="text-4xl font-bold text-center text-[#1d1d1f]">
           회원가입
         </h3>
         <div className="text-md text-center font-medium text-[#1d1d1f]">
-          중고장터 계정을 가지고 계십니까?{' '}
+          중고장터 계정을 가지고 계십니까?{" "}
           <Link href="/auth/login" className="text-[#0071e3] hover:underline">
             로그인
           </Link>
@@ -73,11 +70,11 @@ const RegisterPage = () => {
           errors={errors}
           required
           validate={(value: string) =>
-            /^(?=.*[a-zA-Z가-힣])[a-zA-Z가-힣0-9]{2,}$/.test(value)
-              || '이름은 한글 또는 영문을 포함해야 하며, 2자 이상이어야 합니다.'
+            /^(?=.*[a-zA-Z가-힣])[a-zA-Z가-힣0-9]{2,}$/.test(value) ||
+            "이름은 한글 또는 영문을 포함해야 하며, 2자 이상이어야 합니다."
           }
         />
-        <hr className='border-[#d2d2d7] py-2' />
+        <hr className="border-[#d2d2d7] py-2" />
         <Input
           id="email"
           label="name@example.com"
@@ -86,11 +83,12 @@ const RegisterPage = () => {
           errors={errors}
           required
           validate={(value: string) =>
-            /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value) || '유효한 이메일 주소를 입력해주세요.'
+            /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value) ||
+            "유효한 이메일 주소를 입력해주세요."
           }
         />
-        <p className='text-sm'>새 중고장터 계정으로 사용될 아이디입니다.</p>
-        <hr className='border-[#d2d2d7] py-2' />
+        <p className="text-sm">새 중고장터 계정으로 사용될 아이디입니다.</p>
+        <hr className="border-[#d2d2d7] py-2" />
         <Input
           id="password"
           label="암호"
@@ -100,13 +98,11 @@ const RegisterPage = () => {
           errors={errors}
           required
           validate={(value: string) => {
-            if (!value.trim()) return '비밀번호를 입력해주세요.'
-            if (
-              !/^(?=.*[a-zA-Z])[a-zA-Z0-9]{8,}$/.test(value)
-            ) {
-              return '비밀번호는 8자 이상이어야 하며, 영문을 반드시 포함해야 합니다.'
+            if (!value.trim()) return "비밀번호를 입력해주세요.";
+            if (!/^(?=.*[a-zA-Z])[a-zA-Z0-9]{8,}$/.test(value)) {
+              return "비밀번호는 8자 이상이어야 하며, 영문을 반드시 포함해야 합니다.";
             }
-            return true
+            return true;
           }}
         />
         <Input
@@ -118,13 +114,13 @@ const RegisterPage = () => {
           errors={errors}
           required
           validate={(value: string) =>
-            value === password || '비밀번호가 일치하지 않습니다.'
+            value === password || "비밀번호가 일치하지 않습니다."
           }
         />
-        <Buttton label="계속" disabled={isLoading} />
+        <Button label="계속" disabled={isLoading} />
       </form>
     </section>
-  )
-}
+  );
+};
 
-export default RegisterPage
+export default RegisterPage;
