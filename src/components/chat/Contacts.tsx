@@ -1,6 +1,6 @@
 import { TUserWithChat } from '@/types'
 import React from 'react'
-import User from './User';
+import ChatUser from './ChatUser';
 
 interface ContactsProps {
   users: TUserWithChat[];
@@ -26,7 +26,7 @@ const Contacts = ({
   }
 
   return (
-    <div className='w-full overflow-auto h-[calc(100vh_-_56px)] border-[1px]'>
+    <div className='w-full overflow-auto h-[calc(100vh_-_56px)] border-[#d2d2d7] border-r-[1px]'>
       <h1 className='m-4 text-2xl font-semibold'>Chat</h1>
       <hr className="border-[#d2d2d7] py-2" />
       <div className='flex flex-col'>
@@ -42,7 +42,7 @@ const Contacts = ({
                     filterMessages(user.id, user.name ?? null, user.image ?? null)
                   }}
                 >
-                  <User user={user} currentUserId={currentUser?.id} />
+                  <ChatUser user={user} currentUserId={currentUser?.id} />
                 </div>
               )
             })
