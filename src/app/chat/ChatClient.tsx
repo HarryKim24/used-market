@@ -1,4 +1,5 @@
 'use client'
+import Contacts from '@/components/chat/Contacts';
 import { TUserWithChat } from '@/types';
 import { User } from '@/types/user'
 import axios from 'axios';
@@ -26,16 +27,21 @@ const ChatClient = ({ currentUser }: ChatClientProps) => {
 
   console.log(users);
 
-  users?.find((user: TUserWithChat) => user.email === currentUser?.email)
+  const currentUserWithMessage = users?.find((user: TUserWithChat) => user.email === currentUser?.email)
 
   if (isLoading) return <p>Loading...</p>
-  if (error) return <p>Error!</p>
+  if (error) return <p>Error!</p> 
 
   return (
     <main>
       <div className='grid grid-cols-[1fr] md:grid-cols-[300px_1fr]'>
         <section className={`md:flex ${layout && 'hidden'}`}>
-          Contact Component
+          <Contacts
+            users={users}
+            currentUser={currentUserWithMessage}
+            setLayout={setLayout}
+            setReceiver={setReceiver}
+          />
         </section>
 
         <section className={`md:flex ${!layout && 'hidden'}`}>
