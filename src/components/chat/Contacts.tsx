@@ -28,11 +28,11 @@ const Contacts = ({
   return (
     <div className='w-full overflow-auto h-[calc(100vh_-_56px)] border-[#d2d2d7] border-r-[1px]'>
       <h1 className='m-4 text-2xl font-semibold'>Chat</h1>
-      <hr className="border-[#d2d2d7] py-2" />
+      <hr className="border-[#d2d2d7]" />
       <div className='flex flex-col'>
         {users.length > 0 &&
           users
-            .filter((users) => users.id !== currentUser?.id)
+            .filter((user) => user.id !== currentUser?.id)
             .map((user) => {
               return (
                 <div 

@@ -9,16 +9,23 @@ function normalizeMongoIds(obj: any): any {
   } else if (obj && typeof obj === "object") {
     const newObj: any = {};
     for (const key in obj) {
+      const value = obj[key];
+
       if (key === "_id") {
-        newObj["id"] = obj["_id"].toString();
+        newObj["id"] = value.toString();
+      } else if (value instanceof Date) {
+        newObj[key] = value.toISOString();
+      } else if (value && typeof value === 'object' && typeof value.toHexString === 'function') {
+        newObj[key] = value.toString();
       } else {
-        newObj[key] = normalizeMongoIds(obj[key]);
+        newObj[key] = normalizeMongoIds(value);
       }
     }
     return newObj;
   }
   return obj;
 }
+
 
 export async function GET(request: Request) {
   const currentUser = await getCurrentUser();

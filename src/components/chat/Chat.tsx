@@ -1,7 +1,8 @@
 import { TUserWithChat } from '@/types'
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import ChatInput from './ChatInput';
 import ChatHeader from './ChatHeader';
+import Message from './Message';
 
 interface ChatProps {
   currentUser: TUserWithChat;
@@ -16,6 +17,17 @@ interface ChatProps {
 const Chat = ({
   currentUser, receiver, setLayout
 }: ChatProps) => {
+
+  const messagesEndRef = useRef<null | HTMLDivElement>(null);
+  const scrollToBottom = () => {
+    messagesEndRef?.current?.scrollIntoView({
+      behavior: 'smooth'
+    });
+  }
+
+  useEffect(() => {
+    scrollToBottom();
+  });
 
   const conversation = currentUser?.conversations.find((conversation) => 
     conversation.users.find((user) => user.id === receiver.receiverId));
@@ -40,8 +52,28 @@ const Chat = ({
         />
       </div>
 
-      <div className='flex flex-col gap-8 p-4 overflow-hidden h-[calc(100vh_-_60px_-_70px_-_80px)]'>
-        Chat Message
+      <div className='flex flex-col gap-8 p-4 overflow-auto h-[calc(100vh_-_60px_-_70px_-_80px)]'>
+        {
+          conversation &&
+          conversation.messages
+          .map((message) => {
+            console.log('message.senderId', message.senderId)
+            console.log('currentUser.id', currentUser.id)
+            return (
+              <Message
+                key={message.id}
+                isSender={message.senderId === currentUser.id}
+                messageText={message.text}
+                messageImage={message.image}
+                receiverName={receiver.receiverName}
+                receiverImage={receiver.receiverImage}
+                senderImage={currentUser?.image || null}
+                time={message.createdAt}
+              />
+            )
+          })
+        }
+        <div ref={messagesEndRef} />
       </div>
 
       <div>

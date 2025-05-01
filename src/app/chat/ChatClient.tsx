@@ -26,8 +26,6 @@ const ChatClient = ({ currentUser }: ChatClientProps) => {
     refreshInterval: 1000
   });
 
-  console.log(users);
-
   const currentUserWithMessage = users?.find((user: TUserWithChat) => user.email === currentUser?.email)
 
   if (isLoading) return <p>Loading...</p>
