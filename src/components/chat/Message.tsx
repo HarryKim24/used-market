@@ -17,8 +17,6 @@ const Message = ({
   receiverName, receiverImage, senderImage, time
 }: MessageProps) => {
 
-  console.log('isSender', isSender);
-
   return (
     <div
       className={`grid w-full grid-cols-[40px_1fr] gap-3 mx-auto`}
