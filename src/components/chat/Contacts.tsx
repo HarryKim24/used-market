@@ -32,7 +32,7 @@ const Contacts = ({
       <div className='flex flex-col'>
         {users.length > 0 &&
           users
-            .filter((users) => users.id !== currentUser?.id)
+            .filter((user) => user.id !== currentUser?.id)
             .map((user) => {
               return (
                 <div 

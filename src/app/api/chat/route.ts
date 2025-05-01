@@ -15,6 +15,8 @@ function normalizeMongoIds(obj: any): any {
         newObj["id"] = value.toString();
       } else if (value instanceof Date) {
         newObj[key] = value.toISOString();
+      } else if (value && typeof value === 'object' && typeof value.toHexString === 'function') {
+        newObj[key] = value.toString();
       } else {
         newObj[key] = normalizeMongoIds(value);
       }
@@ -23,6 +25,7 @@ function normalizeMongoIds(obj: any): any {
   }
   return obj;
 }
+
 
 export async function GET(request: Request) {
   const currentUser = await getCurrentUser();
