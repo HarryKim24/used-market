@@ -18,6 +18,7 @@ const ChatUser = ({
   );
 
   const latestMessage = messageWithCurrentUser?.messages.slice(-1)[0];
+  console.log('latestMessage', latestMessage)
 
   return (
     <div 
@@ -25,7 +26,7 @@ const ChatUser = ({
       grid grid-cols-[40px_1fr_50px] grid-rows-[40px] gap-3 
       py-3 px-4 border-[#d2d2d7] border-b-[1px] hover:cursor-pointer'
     >
-      <div className=''>
+      <div>
         <Avatar src={user.image} />
       </div>
       <div>
@@ -44,7 +45,7 @@ const ChatUser = ({
         </p>
         }
       </div>
-      <div>
+      <div className='flex justify-end text-xs text-gray-500'>
         {latestMessage && (
           <p>
             {fromNow(latestMessage.createdAt)}

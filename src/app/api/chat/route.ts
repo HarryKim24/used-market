@@ -9,10 +9,14 @@ function normalizeMongoIds(obj: any): any {
   } else if (obj && typeof obj === "object") {
     const newObj: any = {};
     for (const key in obj) {
+      const value = obj[key];
+
       if (key === "_id") {
-        newObj["id"] = obj["_id"].toString();
+        newObj["id"] = value.toString();
+      } else if (value instanceof Date) {
+        newObj[key] = value.toISOString();
       } else {
-        newObj[key] = normalizeMongoIds(obj[key]);
+        newObj[key] = normalizeMongoIds(value);
       }
     }
     return newObj;
