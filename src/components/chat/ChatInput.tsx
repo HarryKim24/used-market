@@ -1,5 +1,7 @@
-import axios from 'axios';
+import { previewImage } from '@/helpers/previewImage';
+import { uploadImage } from '@/helpers/uploadImage';
 import React, { FormEvent, useRef, useState } from 'react'
+import { CgClose } from 'react-icons/cg';
 import { IoImageOutline } from 'react-icons/io5';
 import { RiSendPlaneLine } from 'react-icons/ri';
 import useSWRMutation from 'swr/mutation';
@@ -29,6 +31,9 @@ const ChatInput = ({
 
   const [message, setMessage] = useState("");
 
+  const [image, setImage] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+
   const imageRef = useRef<HTMLInputElement>(null);
   const chooseImage = () => {
     imageRef.current?.click();
@@ -39,7 +44,7 @@ const ChatInput = ({
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const imageUrl = '';
+    const imageUrl = image ? await uploadImage(image as File) : null;
 
     if (message || imageUrl) {
       try {
@@ -55,6 +60,13 @@ const ChatInput = ({
     }
 
     setMessage('');
+    setImage(null);
+    setImagePreview(null);
+  }
+
+  const removeImage = () => {
+    setImage(null);
+    setImagePreview(null);
   }
 
   return (
@@ -64,6 +76,24 @@ const ChatInput = ({
         p-2 pl-4 border-[1px] border-gray-300 rounded-md shadow-sm'
       onSubmit={handleSubmit}  
     >
+      {imagePreview &&
+        <div className='
+          absolute right-0 w-full overflow-hidden rounded-md bottom-[4.2rem]
+          max-w-[300px] shadow-md
+        '>
+          <img src={imagePreview} alt='' />
+          <span
+            onClick={removeImage}
+            className='
+              absolute flex items-center justify-center p-2 text-xl text-white
+              bg-gray-900 cursor-pointer top-[0.4rem] right-[0.4rem] rounded-full
+              opacity-60 hover:opacity-100
+            '
+          >
+            <CgClose />
+          </span>
+        </div>
+      }
       <input 
         className='w-full text-base outline-none' 
         type='text'
@@ -73,8 +103,10 @@ const ChatInput = ({
       />
 
       <input 
-        type='file' className='hidden'
+        type='file' 
+        className='hidden'
         ref={imageRef}
+        onChange={(e) => previewImage(e, setImagePreview, setImage)}
         accept='image/*'
         multiple={false}
       />

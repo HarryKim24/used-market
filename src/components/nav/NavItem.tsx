@@ -22,6 +22,9 @@ const NavItem = ({ mobile, currentUser }: NavItemProps) => {
         `}
       >
         <li className={`${mobile ? 'text-3xl w-full' : 'py-2 cursor-pointer'}`}>
+          <Link className="inline-flex items-center justify-center whitespace-nowrap" href='/chat'>채팅</Link>
+        </li>
+        <li className={`${mobile ? 'text-3xl w-full' : 'py-2 cursor-pointer'}`}>
           <Link className="inline-flex items-center justify-center whitespace-nowrap" href='/products/upload'>물건 팔기</Link>
         </li>
         <li className={`${mobile ? 'text-3xl w-full' : 'py-2 cursor-pointer'}`}>
