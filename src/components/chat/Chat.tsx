@@ -57,8 +57,6 @@ const Chat = ({
           conversation &&
           conversation.messages
           .map((message) => {
-            console.log('message.senderId', message.senderId)
-            console.log('currentUser.id', currentUser.id)
             return (
               <Message
                 key={message.id}
