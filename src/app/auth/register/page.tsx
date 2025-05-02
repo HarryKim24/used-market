@@ -52,7 +52,7 @@ const RegisterPage = () => {
           { label: "로그인", onClick: () => router.push("/auth/login") },
         ]}
       />
-      <form onSubmit={handleSubmit(onSubmit)} className="w-120 space-y-6 py-8">
+      <form onSubmit={handleSubmit(onSubmit)} className="w-80 sm:w-120 space-y-6 py-8">
         <h3 className="text-4xl font-bold text-center text-[#1d1d1f]">
           회원가입
         </h3>
