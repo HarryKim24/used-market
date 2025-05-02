@@ -11,15 +11,9 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL('/auth/login', req.url));
   }
 
-  if (pathname.startsWith('/admin') && (session?.role !== 'Admin')) {
-    return NextResponse.redirect(new URL('/', req.url));
-  }
-
   if (pathname.startsWith('/auth') && session) {
     return NextResponse.redirect(new URL('/', req.url));
   }
 
   return NextResponse.next();
 }
-
-// export const config = {matcher: ['/admin/:path*', '/profile']}
