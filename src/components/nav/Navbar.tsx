@@ -14,11 +14,6 @@ const Navbar = ({ currentUser }: NavbarProps) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
 
-  useEffect(() => {
-    console.log('currentUser', currentUser);
-  }, [currentUser]);
-  
-
   const handleHamburgerClick = () => {
     setMenuOpen(prev => !prev)
   }
@@ -58,9 +53,7 @@ const Navbar = ({ currentUser }: NavbarProps) => {
               <Link href="/">Logo</Link>
             </motion.div>
           </div>
-          <div
-            className="sm:hidden cursor-pointer"
-          >
+          <div className="sm:hidden cursor-pointer">
             <HamburgerButton open={menuOpen} onClick={handleHamburgerClick} />
           </div>
         </div>
@@ -81,7 +74,7 @@ const Navbar = ({ currentUser }: NavbarProps) => {
               transition={{ duration: 0.4, ease: 'easeInOut' }}
               className="overflow-hidden"
             >
-              <NavItem mobile currentUser={currentUser} />
+              <NavItem mobile currentUser={currentUser} onClickNavItem={() => setMenuOpen(false)} />
             </motion.div>
           )}
         </AnimatePresence>
