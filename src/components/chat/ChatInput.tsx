@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { FormEvent, useState } from 'react'
+import React, { FormEvent, useRef, useState } from 'react'
 import { IoImageOutline } from 'react-icons/io5';
 import { RiSendPlaneLine } from 'react-icons/ri';
 import useSWRMutation from 'swr/mutation';
@@ -28,6 +28,11 @@ const ChatInput = ({
 }: ChatInputProps) => {
 
   const [message, setMessage] = useState("");
+
+  const imageRef = useRef<HTMLInputElement>(null);
+  const chooseImage = () => {
+    imageRef.current?.click();
+  }
 
   const { trigger } = useSWRMutation('/api/chat', sendRequest);
 
@@ -66,9 +71,20 @@ const ChatInput = ({
         value={message}
         onChange={(e) => setMessage(e.target.value)}
       />
-      <div className='text-2xl text-gray-300 cursor-pointer'>
+
+      <input 
+        type='file' className='hidden'
+        ref={imageRef}
+        accept='image/*'
+        multiple={false}
+      />
+      <div 
+        onClick={chooseImage}
+        className='text-2xl text-gray-300 cursor-pointer'
+      >
         <IoImageOutline />
       </div>
+
       <button
         type='submit'
         className='
