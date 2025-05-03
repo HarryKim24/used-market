@@ -13,10 +13,14 @@ export async function POST(request: Request) {
     return new NextResponse("모든 필드를 입력해주세요.", { status: 400 });
   }
 
-  const existingUser = await db.collection('users').findOne({ email });
-
-  if (existingUser) {
+  const existingEmail = await db.collection('users').findOne({ email });
+  if (existingEmail) {
     return new NextResponse("이미 존재하는 이메일입니다.", { status: 409 });
+  }
+
+  const existingName = await db.collection('users').findOne({ name });
+  if (existingName) {
+    return new NextResponse("이미 존재하는 이름입니다.", { status: 409 });
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -28,5 +32,5 @@ export async function POST(request: Request) {
     createdAt: new Date(),
   });
 
-  return NextResponse.json(user);
+  return NextResponse.json({ success: true });
 }

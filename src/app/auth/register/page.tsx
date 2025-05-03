@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Link from "next/link";
@@ -11,6 +10,7 @@ import Button from "@/components/Button";
 
 const RegisterPage = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
 
   const {
@@ -31,12 +31,19 @@ const RegisterPage = () => {
 
   const onSubmit: SubmitHandler<FieldValues> = async (body) => {
     setIsLoading(true);
+    setErrorMessage("");
+
     try {
       const { data } = await axios.post("/api/register", body);
-      console.log(data);
-      router.push("/auth/login");
-    } catch (error) {
-      console.log(error);
+      if (data?.success) {
+        router.push("/auth/login");
+      }
+    } catch (error: any) {
+      if (error.response?.data) {
+        setErrorMessage(error.response.data);
+      } else {
+        setErrorMessage("알 수 없는 오류가 발생했습니다.");
+      }
     } finally {
       setIsLoading(false);
     }
@@ -52,7 +59,10 @@ const RegisterPage = () => {
           { label: "로그인", onClick: () => router.push("/auth/login") },
         ]}
       />
-      <form onSubmit={handleSubmit(onSubmit)} className="w-80 sm:w-120 space-y-6 py-8">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="w-80 sm:w-120 space-y-6 py-8"
+      >
         <h3 className="text-4xl font-bold text-center text-[#1d1d1f]">
           회원가입
         </h3>
@@ -62,6 +72,11 @@ const RegisterPage = () => {
             로그인
           </Link>
         </div>
+
+        {errorMessage && (
+          <div className="text-md text-red-500 text-center">{errorMessage}</div>
+        )}
+
         <Input
           id="name"
           label="이름"
