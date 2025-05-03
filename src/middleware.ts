@@ -11,6 +11,14 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL('/auth/login', req.url));
   }
 
+  if (pathname.startsWith('/products/upload') && !session) {
+    return NextResponse.redirect(new URL('/auth/login', req.url));
+  }
+
+  if (pathname.startsWith('/chat') && !session) {
+    return NextResponse.redirect(new URL('/auth/login', req.url));
+  }
+
   if (pathname.startsWith('/auth') && session) {
     return NextResponse.redirect(new URL('/', req.url));
   }
