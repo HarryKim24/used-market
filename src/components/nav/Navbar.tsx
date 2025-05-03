@@ -14,11 +14,6 @@ const Navbar = ({ currentUser }: NavbarProps) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
 
-  useEffect(() => {
-    console.log('currentUser', currentUser);
-  }, [currentUser]);
-  
-
   const handleHamburgerClick = () => {
     setMenuOpen(prev => !prev)
   }
@@ -47,7 +42,10 @@ const Navbar = ({ currentUser }: NavbarProps) => {
   }, [menuOpen])
 
   return (
-    <nav className="relative z-10 w-full bg-[#ffffffcc]">
+    <nav className={`
+      fixed top-0 left-0 z-50 w-full 
+      bg-white/70 backdrop-blur-2xl
+    `}>
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mx-5 sm:mx-10 lg:mx-20">
         <div className="flex items-center justify-between w-full text-2xl h-14">
           <div className="w-fit">
@@ -58,9 +56,7 @@ const Navbar = ({ currentUser }: NavbarProps) => {
               <Link href="/">Logo</Link>
             </motion.div>
           </div>
-          <div
-            className="sm:hidden cursor-pointer"
-          >
+          <div className="sm:hidden cursor-pointer">
             <HamburgerButton open={menuOpen} onClick={handleHamburgerClick} />
           </div>
         </div>
@@ -81,7 +77,7 @@ const Navbar = ({ currentUser }: NavbarProps) => {
               transition={{ duration: 0.4, ease: 'easeInOut' }}
               className="overflow-hidden"
             >
-              <NavItem mobile currentUser={currentUser} />
+              <NavItem mobile currentUser={currentUser} onClickNavItem={() => setMenuOpen(false)} />
             </motion.div>
           )}
         </AnimatePresence>

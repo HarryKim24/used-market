@@ -35,6 +35,7 @@ export default async function RootLayout({
         className={`
           ${geistSans.variable} 
           ${geistMono.variable} 
+          pt-14
           font-sans 
           bg-[--color-background] 
           text-[--color-foreground] 
