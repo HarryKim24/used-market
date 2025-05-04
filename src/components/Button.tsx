@@ -20,13 +20,13 @@ const Button = ({
       disabled={disabled}
       onClick={onClick}
       className={`
-        relative w-full rounded-xl px-6
+        relative w-full rounded-xl px-6 cursor-pointer
         ${small ? 'py-1.5 text-sm font-normal' : 'py-3 text-md font-medium'}
         ${outline 
           ? 'bg-white border border-[#dcdcdc] text-black hover:bg-[#f0f0f0]' 
           : 'bg-[#0071e3] text-white border border-transparent hover:bg-[#0076df]'}
         transition-all duration-200 ease-in-out
-        disabled:opacity-50 disabled:cursor-not-allowed
+        disabled:opacity-50
       `}
     >
       {Icon && (
