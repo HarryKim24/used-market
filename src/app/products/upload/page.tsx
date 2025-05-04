@@ -65,7 +65,7 @@ const ProductUploadPage = () => {
 
   return (
     <Container localNavTitle="상품 업로드">
-      <div className="w-120 max-w-screen-lg mx-auto">
+      <div className="max-w-120 mx-auto">
         <form className="flex flex-col gap-8" onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col gap-2">
             <h4 className="text-md font-medium">이미지 등록</h4>
