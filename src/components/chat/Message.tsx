@@ -35,7 +35,7 @@ const Message = ({
         </div>
 
         {messageImage && (
-          <div className='overflow-hidden rounded-md mx-[0.6rem] max-w-[80%]'>
+          <div className='overflow-hidden rounded-md max-w-[80%] mb-2'>
             <Image
               src={messageImage}
               width={300}
