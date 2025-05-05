@@ -15,9 +15,9 @@ const EmptyState = ({
   const router = useRouter();
 
   return (
-    <div className="min-h-[calc(100vh-56px-45px-48px)] mt-20 flex flex-col gap-4 items-center">
-      <p className="text-3xl font-bold">{title}</p>
-      <p className="text-lg font-medium">{subtitle}</p>
+    <div className="min-h-[calc(100vh-56px-45px-48px-80px-32px-24px-12px)] mt-20 flex flex-col gap-4 items-center">
+      <p className="text-2xl sm:text-3xl font-bold">{title}</p>
+      <p className="text-md sm:text-xl font-medium">{subtitle}</p>
       <div className="mt-4 rounded-full overflow-hidden">
         <Button label="모든 필터 제거" onClick={() => router.push("/")} />
       </div>
