@@ -66,8 +66,17 @@ const Categories = () => {
   const category = params?.get('category');
 
   return (
-    <div className="overflow-x-auto w-full">
-      <div className="flex flex-row justify-center gap-6 min-w-max mx-auto">
+    <div className="w-full px-2">
+      <div
+        className="
+          grid 
+          grid-cols-4 
+          md:grid-cols-8 
+          gap-2 
+          max-w-screen-lg 
+          mx-auto
+        "
+      >
         {categories.map((item) => (
           <CategoryBox
             key={item.label}
@@ -81,5 +90,6 @@ const Categories = () => {
     </div>
   );
 };
+
 
 export default Categories
