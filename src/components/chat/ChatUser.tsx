@@ -30,19 +30,23 @@ const ChatUser = ({
         <Avatar src={user.image} />
       </div>
       <div>
-        <h3>{user.name}</h3>
-
+        <h3>
+          {(user.name ?? '알 수 없음').length > 10
+            ? `${(user.name ?? '알 수 없음').slice(0, 10)}...`
+            : (user.name ?? '알 수 없음')}
+        </h3>
         {latestMessage?.text ? (
-          <p className='
-            overflow-hidden text-xs font-medium text-gray-600
-            break-words whitespace-pre-wrap
-          '>
-            {latestMessage.text}
-          </p>
+        <p className="
+          overflow-hidden text-xs font-medium text-gray-600
+          break-words whitespace-pre-wrap
+        ">
+          {latestMessage.text.length > 30
+            ? `${latestMessage.text.slice(0, 20)}...`
+            : latestMessage.text}
+        </p>
         ) : latestMessage?.image ? (
-          <p className='text-xs font-medium text-gray-600'>[이미지]</p>
+          <p className="text-xs font-medium text-gray-600">[이미지]</p>
         ) : null}
-        
       </div>
       <div className='flex justify-end text-xs text-gray-500'>
         {latestMessage && (

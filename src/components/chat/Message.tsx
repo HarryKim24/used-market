@@ -48,7 +48,7 @@ const Message = ({
 
         {messageText && (
           <div className={`
-            p-2 break-all text-white rounded-lg
+            p-2 break-all text-white rounded-lg max-w-[80%]
             ${isSender ? "bg-[#0071e3] rounded-tr-none" : "bg-gray-400 rounded-tl-none"}
           `}>
             <p>{messageText}</p>

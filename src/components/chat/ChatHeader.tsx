@@ -28,7 +28,7 @@ const ChatHeader = ({
           <h2 className='text-lg font-semibold'>
             {receiverName}
             {lastMessageTime && (
-              <p className='text-gray-600'>
+              <p className='text-neutral-400 text-xs font-medium'>
                 {formatTime(lastMessageTime)}
               </p>
             )}
