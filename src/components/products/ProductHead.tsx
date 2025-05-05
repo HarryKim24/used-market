@@ -19,13 +19,13 @@ const ProductHead = ({
       <LocalNav title={title} />
       <div 
         className='
-          w-full h-[60vh] overflow-hidden rounded-xl relative
+          w-full h-[35vh] md:h-[70vh] overflow-hidden rounded-xl relative bg-neutral-300
         '
       >
         <Image
           src={imageSrc}
           fill
-          className='object-cover w-full'
+          className='object-contain w-full'
           alt={`${title} image`}
         />
         <div className='absolute top-5 right-5'>
