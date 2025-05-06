@@ -33,7 +33,7 @@ const ChatClient = ({ currentUser }: ChatClientProps) => {
 
   return (
     <main>
-      <div className='grid grid-cols-[1fr] md:grid-cols-[300px_1fr]'>
+      <div className='grid grid-cols-[1fr] md:grid-cols-[320px_1fr]'>
         <section className={`md:flex ${layout && 'hidden'}`}>
           <Contacts
             users={users}
