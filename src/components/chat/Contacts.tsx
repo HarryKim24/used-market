@@ -27,8 +27,14 @@ const Contacts = ({
 
   return (
     <div className='w-full overflow-auto h-[calc(100vh_-_56px)] border-[#d2d2d7] border-r-[1px]'>
-      <h1 className='m-4 text-2xl font-semibold'>Chat</h1>
-      <hr className="border-[#d2d2d7]" />
+      <div className='flex flex-row justify-between'>
+        <div>
+          <h1 className='m-3 text-3xl font-semibold'>채팅</h1>
+        </div>
+        <div className='flex items-center justify-center w-10 text-[#2893ff]'>
+          <button className='cursor-pointer'>편집</button>
+        </div>
+      </div>
       <div className='flex flex-col'>
         {users.length > 0 &&
           users

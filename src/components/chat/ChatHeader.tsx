@@ -14,7 +14,7 @@ const ChatHeader = ({
   setLayout, receiverName, receiverImage, lastMessageTime
 }: ChatHeaderProps) => {
   return (
-    <div className='pl-4 border-[#d2d2d7] border-b-[1px]'>
+    <div className="pl-4 border-b border-[#d2d2d7] bg-white/80 backdrop-blur-md">
       <div className='flex items-center h-16 gap-4'>
         <div className='flex items-center justify-center text-3xl text-gray-400'>
           <button onClick={() => setLayout(false)} className='md:hidden'>
