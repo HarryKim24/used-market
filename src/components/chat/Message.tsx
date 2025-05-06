@@ -20,7 +20,7 @@ const Message = ({
 
   return (
     <div
-      className={`grid w-full grid-cols-[40px_1fr] gap-3 mx-auto`}
+      className={`grid w-full grid-cols-[40px_1fr] gap-3 mx-auto p-4`}
       style={{ direction: `${isSender ? 'rtl' : 'ltr'}` }}
     >
       <div>
@@ -35,7 +35,7 @@ const Message = ({
         </div>
 
         {messageImage && (
-          <div className='overflow-hidden rounded-md max-w-[80%] mb-2'>
+          <div className='overflow-hidden rounded-4xl max-w-[80%] mb-2'>
             <Image
               src={messageImage}
               width={300}
@@ -47,9 +47,9 @@ const Message = ({
         )}
 
         {messageText && (
-          <div className={`
-            p-2 break-all text-white rounded-lg max-w-[80%]
-            ${isSender ? "bg-[#0071e3] rounded-tr-none" : "bg-gray-400 rounded-tl-none"}
+          <div style={{ direction: 'ltr' }} className={`
+            p-2 pl-4 pr-4 break-all text-white rounded-4xl max-w-[80%]
+            ${isSender ? "bg-[#2893ff] rounded-tr-none" : "bg-gray-400 rounded-tl-none"}
           `}>
             <p>{messageText}</p>
           </div>

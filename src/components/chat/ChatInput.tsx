@@ -2,8 +2,8 @@ import { previewImage } from '@/helpers/previewImage';
 import { uploadImage } from '@/helpers/uploadImage';
 import React, { FormEvent, useRef, useState } from 'react'
 import { CgClose } from 'react-icons/cg';
-import { IoImageOutline } from 'react-icons/io5';
-import { RiSendPlaneLine } from 'react-icons/ri';
+import { FaArrowUp, FaPlus } from 'react-icons/fa6';
+import { GoPlus } from 'react-icons/go';
 import useSWRMutation from 'swr/mutation';
 
 interface ChatInputProps {
@@ -72,8 +72,8 @@ const ChatInput = ({
   return (
     <form
       className='
-        relative flex items-center justify-between w-full gap-4 
-        p-2 pl-4 border-[1px] border-gray-300 rounded-md shadow-sm'
+        relative flex items-center justify-between w-full gap-4 bg-white
+        p-2 border-[1px] border-gray-300 rounded-4xl shadow-sm'
       onSubmit={handleSubmit}  
     >
       {imagePreview &&
@@ -94,6 +94,14 @@ const ChatInput = ({
           </span>
         </div>
       }
+
+      <div 
+        onClick={chooseImage}
+        className='text-2xl text-white cursor-pointer bg-gray-400 p-[4px] rounded-full'
+      >
+        <GoPlus />
+      </div>
+
       <input 
         className='w-full text-base outline-none' 
         type='text'
@@ -110,20 +118,14 @@ const ChatInput = ({
         accept='image/*'
         multiple={false}
       />
-      <div 
-        onClick={chooseImage}
-        className='text-2xl text-gray-300 cursor-pointer'
-      >
-        <IoImageOutline />
-      </div>
 
       <button
         type='submit'
         className='
-          flex items-center justify-center p-2 bg-gray-500 
-          rounded-lg cursor-pointer disabled:opacity-60'
+          flex items-center justify-center p-2 bg-green-400 
+          rounded-4xl cursor-pointer disabled:opacity-60'
       >
-        <RiSendPlaneLine className='text-white' />
+        <FaArrowUp className='text-white' />
       </button>
     </form>
   )
