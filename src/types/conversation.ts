@@ -8,7 +8,10 @@ export interface Conversation {
   users: User[];
   messages: Message[];
   createdAt: Date;
+  deletedBy?: string[];
 }
+
+
 
 export interface Message {
   id: string;

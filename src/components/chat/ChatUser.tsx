@@ -2,22 +2,26 @@ import { TConversation, TUserWithChat } from '@/types'
 import React from 'react'
 import Avatar from '../Avatar';
 import { fromNow } from '@/helpers/dayjs';
-import { FaRegCircle } from 'react-icons/fa6';
+import { FaCircle, FaRegCircle } from 'react-icons/fa6';
 
 interface ChatUserProps {
   user: TUserWithChat;
   currentUserId: string;
   isEditMode?: boolean;
+  isSelected?: boolean;
+  onToggleSelect?: () => void;
 }
 
 const ChatUser = ({
-  user, currentUserId, isEditMode = false
+  user, currentUserId, isEditMode = false, isSelected = false, onToggleSelect
 }: ChatUserProps) => {
-  const messageWithCurrentUser = user.conversations.find(
-    (conversation: TConversation) =>
-      conversation.users.find((user) => user.id === currentUserId)
+  const conversation = user.conversations.find((conversation: TConversation) =>
+    conversation.users.some((u) => u.id === currentUserId)
   );
-  const latestMessage = messageWithCurrentUser?.messages.slice(-1)[0];
+
+  const latestMessage = conversation?.messages.at(-1);
+  const displayName = user.name ?? '알 수 없음';
+  const shortName = displayName.length > 10 ? `${displayName.slice(0, 10)}...` : displayName;
 
   return (
     <div className="px-2 hover:cursor-pointer mt-2">
@@ -31,22 +35,19 @@ const ChatUser = ({
       >
         {isEditMode && (
           <div className="flex items-center justify-center text-gray-500">
-            <button>
-              <FaRegCircle />
+            <button onClick={onToggleSelect} aria-label="대화 선택">
+              {isSelected ? <FaCircle className="text-[#2893ff]" /> : <FaRegCircle />}
             </button>
           </div>
         )}
-
         <div>
           <Avatar src={user.image} />
         </div>
 
         <div>
-          <h3 className="font-semibold">
-            {(user.name ?? '알 수 없음').length > 10
-              ? `${(user.name ?? '알 수 없음').slice(0, 10)}...`
-              : (user.name ?? '알 수 없음')}
-          </h3>
+          <div className="flex items-center gap-2">
+            <h3 className="font-semibold">{shortName}</h3>
+          </div>
           {latestMessage?.text ? (
             <p className="overflow-hidden text-xs font-medium text-gray-600 break-words whitespace-pre-wrap">
               {latestMessage.text.length > (isEditMode ? 30 : 40)

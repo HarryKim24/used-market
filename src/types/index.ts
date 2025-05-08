@@ -7,6 +7,7 @@ export type TUserWithChat = User & {
 
 export type TConversation = {
   id: string;
-  messages :Message[];
+  messages: Message[];
   users: User[];
-}
+  deletedBy?: string[];
+};
