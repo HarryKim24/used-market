@@ -9,4 +9,6 @@ export type TConversation = {
   id: string;
   messages :Message[];
   users: User[];
+  deleted?: boolean;
+  deletedAt?: Date;
 }

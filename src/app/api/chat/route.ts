@@ -124,12 +124,20 @@ export async function POST(request: Request) {
 
     if (conversation) {
       conversationId = conversation._id;
+
+      if (conversation.deleted === true) {
+        await db.collection("conversations").updateOne(
+          { _id: conversationId },
+          { $set: { deleted: false } }
+        );
+      }
     } else {
       const newConv = await db.collection("conversations").insertOne({
         senderId,
         receiverId,
         users: [senderId, receiverId],
-        createdAt: new Date()
+        createdAt: new Date(),
+        deleted: false
       });
       conversationId = newConv.insertedId;
     }
@@ -154,5 +162,63 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error("[POST_CHAT_ERROR]", error);
     return NextResponse.json({ error: "Failed to create message" }, { status: 500 });
+  }
+}
+
+
+export async function PATCH(request: Request) {
+  const currentUser = await getCurrentUser();
+  if (!currentUser) return NextResponse.error();
+
+  const client = await clientPromise;
+  const db = client.db();
+  const body = await request.json();
+
+  const conversationIds: string[] = body.conversationIds;
+  const deleted: boolean = body.deleted;
+
+  if (!Array.isArray(conversationIds) || typeof deleted !== "boolean") {
+    return NextResponse.json({ error: "Invalid request" }, { status: 400 });
+  }
+
+  try {
+    const objectIds = conversationIds.map((id) => new ObjectId(id));
+
+    const update = deleted
+      ? { $set: { deleted: true, deletedAt: new Date() } }
+      : { $set: { deleted: false }, $unset: { deletedAt: "" } };
+
+    const result = await db.collection("conversations").updateMany(
+      { _id: { $in: objectIds } },
+      update
+    );
+
+    return NextResponse.json({ modifiedCount: result.modifiedCount });
+  } catch (error) {
+    console.error("[PATCH_CONVERSATIONS_ERROR]", error);
+    return NextResponse.json({ error: "Failed to update conversations" }, { status: 500 });
+  }
+}
+
+
+export async function DELETE() {
+  const currentUser = await getCurrentUser();
+  if (!currentUser) return NextResponse.error();
+
+  try {
+    const client = await clientPromise;
+    const db = client.db();
+
+    const THIRTY_DAYS_AGO = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+
+    const result = await db.collection("conversations").deleteMany({
+      deleted: true,
+      deletedAt: { $lte: THIRTY_DAYS_AGO }
+    });
+
+    return NextResponse.json({ deletedCount: result.deletedCount });
+  } catch (error) {
+    console.error("[DELETE_OLD_CONVERSATIONS]", error);
+    return NextResponse.json({ error: "Failed to purge old conversations" }, { status: 500 });
   }
 }
