@@ -3,7 +3,6 @@ import React from 'react'
 import Avatar from '../Avatar';
 import { fromNow } from '@/helpers/dayjs';
 import { FaCircle, FaRegCircle } from 'react-icons/fa6';
-import { daysUntilDeleted } from '@/helpers/dayjs';
 
 interface ChatUserProps {
   user: TUserWithChat;
@@ -23,8 +22,6 @@ const ChatUser = ({
   const latestMessage = conversation?.messages.at(-1);
   const displayName = user.name ?? '알 수 없음';
   const shortName = displayName.length > 10 ? `${displayName.slice(0, 10)}...` : displayName;
-  const isDeleted = conversation?.deletedBy?.includes(currentUserId) ?? false;
-  const deletedAt = conversation?.deletedAt;
 
   return (
     <div className="px-2 hover:cursor-pointer mt-2">
@@ -50,11 +47,6 @@ const ChatUser = ({
         <div>
           <div className="flex items-center gap-2">
             <h3 className="font-semibold">{shortName}</h3>
-            {isDeleted && deletedAt && (
-              <p className="text-[11px] text-red-500 font-medium">
-                {daysUntilDeleted(deletedAt)}일 후 영구 삭제 예정
-              </p>
-            )}
           </div>
           {latestMessage?.text ? (
             <p className="overflow-hidden text-xs font-medium text-gray-600 break-words whitespace-pre-wrap">

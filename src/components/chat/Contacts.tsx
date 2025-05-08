@@ -54,30 +54,30 @@ const Contacts = ({
         return convo?.id
       })
       .filter(Boolean)
-
+  
     if (selectedConversations.length === 0) return
-
+  
     try {
       const res = await fetch('/api/chat', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           conversationIds: selectedConversations,
-          deleted: true
+          deleted: true,
         })
       })
-
+  
       if (!res.ok) throw new Error('삭제 실패')
-
+  
       const data = await res.json()
       console.log('삭제된 개수:', data.modifiedCount)
-
+  
       setSelectedUserIds([])
       setIsEditMode(false)
     } catch (err) {
       console.error('삭제 요청 실패:', err)
     }
-  }
+  }  
 
   return (
     <div className="w-full overflow-auto h-[calc(100vh_-_56px)] border-[#d2d2d7] border-r-[1px]">

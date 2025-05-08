@@ -10,5 +10,4 @@ export type TConversation = {
   messages: Message[];
   users: User[];
   deletedBy?: string[];
-  deletedAt?: Date;
 };

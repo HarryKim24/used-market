@@ -9,7 +9,6 @@ export interface Conversation {
   messages: Message[];
   createdAt: Date;
   deletedBy?: string[];
-  deletedAt?: Date;
 }
 
 
