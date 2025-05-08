@@ -4,30 +4,23 @@ import getCurrentUser from "@/app/actions/getCurrentUser";
 import clientPromise from "../../../../lib/mongodb";
 
 function normalizeMongoIds(obj: any): any {
-  if (Array.isArray(obj)) {
-    return obj.map(normalizeMongoIds);
-  } else if (obj && typeof obj === "object") {
+  if (Array.isArray(obj)) return obj.map(normalizeMongoIds);
+  if (obj && typeof obj === "object") {
     const newObj: any = {};
     for (const key in obj) {
       const value = obj[key];
-
-      if (key === "_id") {
-        newObj["id"] = value.toString();
-      } else if (value instanceof Date) {
-        newObj[key] = value.toISOString();
-      } else if (value && typeof value === 'object' && typeof value.toHexString === 'function') {
+      if (key === "_id") newObj["id"] = value.toString();
+      else if (value instanceof Date) newObj[key] = value.toISOString();
+      else if (value && typeof value === 'object' && typeof value.toHexString === 'function')
         newObj[key] = value.toString();
-      } else {
-        newObj[key] = normalizeMongoIds(value);
-      }
+      else newObj[key] = normalizeMongoIds(value);
     }
     return newObj;
   }
   return obj;
 }
 
-
-export async function GET(request: Request) {
+export async function GET() {
   const currentUser = await getCurrentUser();
   if (!currentUser) return NextResponse.error();
 
@@ -96,7 +89,6 @@ export async function GET(request: Request) {
     ]).toArray();
 
     const normalized = normalizeMongoIds(users);
-
     return NextResponse.json(normalized);
   } catch (error) {
     console.error("[GET_CHAT_ERROR]", error);
@@ -114,6 +106,8 @@ export async function POST(request: Request) {
 
   const senderId = new ObjectId(body.senderId);
   const receiverId = new ObjectId(body.receiverId);
+  const senderIdStr = body.senderId;
+  const receiverIdStr = receiverId.toString();
 
   try {
     const conversation = await db.collection("conversations").findOne({
@@ -125,19 +119,30 @@ export async function POST(request: Request) {
     if (conversation) {
       conversationId = conversation._id;
 
-      if (conversation.deleted === true) {
+      const updates: any = {};
+
+      if (conversation.deletedBy?.includes(senderIdStr)) {
+        updates.$pull = { ...(updates.$pull || {}), deletedBy: senderIdStr };
+      }
+
+      if (conversation.deletedBy?.includes(receiverIdStr)) {
+        updates.$pull = { ...(updates.$pull || {}), deletedBy: receiverIdStr };
+      }
+
+      if (Object.keys(updates).length > 0) {
         await db.collection("conversations").updateOne(
           { _id: conversationId },
-          { $set: { deleted: false } }
+          updates
         );
       }
+
     } else {
       const newConv = await db.collection("conversations").insertOne({
         senderId,
         receiverId,
         users: [senderId, receiverId],
         createdAt: new Date(),
-        deleted: false
+        deletedBy: [],
       });
       conversationId = newConv.insertedId;
     }
@@ -157,14 +162,12 @@ export async function POST(request: Request) {
     });
 
     const normalizedMessage = normalizeMongoIds(message);
-
     return NextResponse.json(normalizedMessage);
   } catch (error) {
     console.error("[POST_CHAT_ERROR]", error);
     return NextResponse.json({ error: "Failed to create message" }, { status: 500 });
   }
 }
-
 
 export async function PATCH(request: Request) {
   const currentUser = await getCurrentUser();
@@ -183,15 +186,23 @@ export async function PATCH(request: Request) {
 
   try {
     const objectIds = conversationIds.map((id) => new ObjectId(id));
+    const userId = currentUser.id;
 
-    const update = deleted
-      ? { $set: { deleted: true, deletedAt: new Date() } }
-      : { $set: { deleted: false }, $unset: { deletedAt: "" } };
+    const updateQuery = deleted
+      ? {
+          $addToSet: { deletedBy: userId },
+          $set: { deletedAt: new Date() },
+        }
+      : {
+          $pull: { deletedBy: userId },
+          $unset: { deletedAt: "" },
+        };
 
-    const result = await db.collection("conversations").updateMany(
-      { _id: { $in: objectIds } },
-      update
-    );
+        const result = await db.collection("conversations").updateMany(
+          { _id: { $in: objectIds } },
+          updateQuery as any
+        );
+        
 
     return NextResponse.json({ modifiedCount: result.modifiedCount });
   } catch (error) {
@@ -199,7 +210,6 @@ export async function PATCH(request: Request) {
     return NextResponse.json({ error: "Failed to update conversations" }, { status: 500 });
   }
 }
-
 
 export async function DELETE() {
   const currentUser = await getCurrentUser();
@@ -211,9 +221,24 @@ export async function DELETE() {
 
     const THIRTY_DAYS_AGO = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
 
-    const result = await db.collection("conversations").deleteMany({
-      deleted: true,
+    const conversations = await db.collection("conversations").find({
       deletedAt: { $lte: THIRTY_DAYS_AGO }
+    }).toArray();
+
+    const deletableIds = conversations
+      .filter((conv) =>
+        conv.users.every((userId: ObjectId) =>
+          conv.deletedBy?.includes(userId.toString())
+        )
+      )
+      .map((conv) => conv._id);
+
+    if (deletableIds.length === 0) {
+      return NextResponse.json({ deletedCount: 0 });
+    }
+
+    const result = await db.collection("conversations").deleteMany({
+      _id: { $in: deletableIds }
     });
 
     return NextResponse.json({ deletedCount: result.deletedCount });
