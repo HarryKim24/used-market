@@ -66,7 +66,7 @@ const Categories = () => {
   const category = params?.get('category');
 
   return (
-    <div className="w-full px-2">
+    <div className="w-full">
       <div
         className="
           grid 

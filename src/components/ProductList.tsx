@@ -9,7 +9,6 @@ import { User } from "@/types/user";
 import Pagination from "./Pagination";
 import { PRODUCTS_PER_PAGE } from "@/constants";
 import Input from "./Input";
-import Button from "./Button";
 
 interface ProductListProps {
   products: {
@@ -77,7 +76,7 @@ const ProductList = ({ products, currentUser }: ProductListProps) => {
         onSubmit={handleSubmit(onSearch)}
         className="px-2 pt-6 max-w-2xl mx-auto w-full"
       >
-        <div className="h-full w-60 sm:w-80 md:w-100 lg:w-120 mx-auto">
+        <div className="h-full w-50 sm:w-80 md:w-100 lg:w-120 mx-auto">
           <Input
             id="search"
             label="상품 검색"
