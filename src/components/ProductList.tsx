@@ -36,7 +36,7 @@ const ProductList = ({ products, currentUser }: ProductListProps) => {
   return (
     <>
       <div
-        className="grid grid-cols-1 gap-2 pt-12 
+        className="grid grid-cols-1 gap-2 pt-12 px-2
         sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6"
       >
         {paged.map((product) => (
