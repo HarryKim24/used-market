@@ -1,8 +1,11 @@
+'use client';
+
 import { User } from '@/types/user';
-import React from 'react'
+import React from 'react';
 import LocalNav from '../nav/LocalNav';
 import Image from 'next/image';
 import HeartButton from '../HeartButton';
+import { useRouter } from 'next/navigation';
 
 interface ProductHeadProps {
   title: string;
@@ -15,6 +18,29 @@ interface ProductHeadProps {
 const ProductHead = ({
   title, imageSrc, id, currentUser, userId,
 }: ProductHeadProps) => {
+  const router = useRouter();
+
+  const handleDelete = async () => {
+    const confirmDelete = confirm("정말 삭제하시겠습니까?");
+    if (!confirmDelete) return;
+
+    try {
+      const res = await fetch(`/api/products/${id}`, {
+        method: "DELETE",
+      });
+
+      if (!res.ok) {
+        throw new Error("삭제 실패");
+      }
+
+      alert("삭제되었습니다.");
+      router.push("/");
+    } catch (error) {
+      alert("삭제 중 오류가 발생했습니다.");
+      console.error("삭제 실패:", error);
+    }
+  };
+
   return (
     <>
       <LocalNav 
@@ -24,7 +50,7 @@ const ProductHead = ({
             ? [
                 {
                   label: "삭제",
-                  onClick: () => console.log("게시글 삭제"),
+                  onClick: handleDelete,
                 }
               ]
             : undefined
@@ -49,7 +75,7 @@ const ProductHead = ({
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default ProductHead
+export default ProductHead;
