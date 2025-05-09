@@ -35,6 +35,7 @@ const ProductClient = ({
             imageSrc={product.imageSrc}
             id={product.id}
             currentUser={currentUser}
+            userId={product.userId}
           />
           <div
             className='grid grid-cols-1 mt-6 md:grid-cols-2 md:gap-10'
