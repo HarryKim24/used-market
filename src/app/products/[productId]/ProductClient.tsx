@@ -54,11 +54,16 @@ const ProductClient = ({
             </div>
           </div>
         </div>
-        <div className='mt-10'>
-          <Button
-            label='채팅하기'
-            onClick={() => router.push('/chat')}
-          />
+        <div className="mt-10 flex justify-between items-center">
+          <div className="text-xl sm:text-2xl md:text-3xl font-bold text-[#1d1d1f]">
+            {product.price.toLocaleString()}원
+          </div>
+          <div className="w-30 sm:w-60 md:w-80 text-md sm:text-xl md:text-2xl">
+            <Button
+              label="채팅하기"
+              onClick={() => router.push("/chat")}
+            />
+          </div>
         </div>
       </div>
     </Container>
