@@ -86,7 +86,7 @@ const Input = <T extends FieldValues>({
           onClick={onIconClick}
           className="absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer"
         >
-          <FiSearch size={20} />
+          <FiSearch size={16} />
         </button>
       )}
 
