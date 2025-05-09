@@ -19,13 +19,13 @@ const ProductCard = ({ data, currentUser }: ProductCardProps) => {
       onClick={() => router.push(`/products/${data.id}`)}
       className="col-span-1 cursor-pointer group"
     >
-      <div className="flex flex-col w-full gap-6 bg-[#f5f5f7] rounded-xl p-4">
-        <div className="relative w-full overflow-hidden aspect-square rounded-xl">
+      <div className="flex flex-col w-full gap-4 bg-[#f5f5f7] rounded-2xl transition-shadow duration-500 hover:shadow-xs">
+        <div className="relative w-full overflow-hidden aspect-square rounded-t-2xl">
           <Image
             src={data.imageSrc}
             fill
             sizes="auto"
-            className="object-cover w-full h-full transition duration-300 group-hover:scale-110"
+            className="object-cover w-full h-full transition-transform duration-500 ease-in-out group-hover:scale-105"
             alt={`${data.title} image`}
             priority
           />
@@ -33,20 +33,15 @@ const ProductCard = ({ data, currentUser }: ProductCardProps) => {
             <HeartButton productId={data.id} currentUser={currentUser} />
           </div>
         </div>
-        <div>
-          <div className="text-2xl font-bold text-center">{data.title}</div>
-          <div className="font-light text-neutral-500 text-center">
-            {data.category}
-          </div>
-        </div>
         <div className="text-center">
-          <div className="text-lg p-2">
-            <span>₩</span>
-            {data.price.toLocaleString()}
+          <div className="text-lg font-semibold text-[#1d1d1f]">{data.title}</div>
+          <div className="text-sm text-neutral-500">{data.category}</div>
+        </div>
+        <div className="text-center space-y-1">
+          <div className="text-base text-[#1d1d1f] font-medium">
+            {data.price.toLocaleString()}원
           </div>
-          <div className="text-xs text-neutral-500">
-            {fromNow(data.createdAt)}
-          </div>
+          <div className="text-xs text-neutral-400 pb-2">{fromNow(data.createdAt)}</div>
         </div>
       </div>
     </div>

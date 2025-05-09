@@ -77,7 +77,7 @@ const ProductList = ({ products, currentUser }: ProductListProps) => {
         onSubmit={handleSubmit(onSearch)}
         className="px-2 pt-6 max-w-2xl mx-auto w-full"
       >
-        <div className="h-full w-full lg:w-80 2xl:w-120 mx-auto">
+        <div className="h-full w-60 sm:w-80 md:w-100 lg:w-120 mx-auto">
           <Input
             id="search"
             label="상품 검색"
@@ -89,7 +89,7 @@ const ProductList = ({ products, currentUser }: ProductListProps) => {
       </form>
 
       <div
-        className="grid grid-cols-1 gap-2 pt-6 px-2
+        className="grid grid-cols-1 gap-3 pt-8 px-4
         sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6"
       >
         {paged.map((product) => (
