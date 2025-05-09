@@ -12,13 +12,13 @@ const ProductCategory = ({
 }: ProductCategoryProps) => {
   return (
     <div>
-      <div className='flex flex-fow items-center gap-4 pb-4'>
+      <div className='flex flex-fow items-center gap-4 pb-2'>
         <Icon size={40} className='text-neutral-600' />
         <div className='flex flex-col'>
-          <div className='text-lg font-semibold'>
+          <div className='text-sm font-semibold'>
             {label}
           </div>
-          <div className='font-light text-neutral-500'>
+          <div className='text-xs font-medium text-neutral-400'>
             {description}
           </div>
         </div>

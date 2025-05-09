@@ -35,6 +35,7 @@ const ProductClient = ({
             imageSrc={product.imageSrc}
             id={product.id}
             currentUser={currentUser}
+            userId={product.userId}
           />
           <div
             className='grid grid-cols-1 mt-6 md:grid-cols-2 md:gap-10'
@@ -54,11 +55,16 @@ const ProductClient = ({
             </div>
           </div>
         </div>
-        <div className='mt-10'>
-          <Button
-            label='채팅하기'
-            onClick={() => router.push('/chat')}
-          />
+        <div className="mt-10 flex justify-between items-center">
+          <div className="text-xl font-bold text-[#1d1d1f]">
+            {product.price.toLocaleString()}원
+          </div>
+          <div className="w-30">
+            <Button
+              label="채팅하기"
+              onClick={() => router.push("/chat")}
+            />
+          </div>
         </div>
       </div>
     </Container>

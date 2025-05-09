@@ -73,7 +73,7 @@ const RegisterPage = () => {
         title="중고장터 계정"
         menuItems={[{ label: "로그인", onClick: () => router.push("/auth/login") }]}
       />
-      <form onSubmit={handleSubmit(onSubmit)} className="w-80 sm:w-120 space-y-6 py-8">
+      <form onSubmit={handleSubmit(onSubmit)} className="w-80 sm:w-120 space-y-6 py-8  mx-auto">
         <h3 className="text-4xl font-bold text-center text-[#1d1d1f]">회원가입</h3>
 
         <div className="text-md text-center font-medium text-[#1d1d1f]">

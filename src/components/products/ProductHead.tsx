@@ -9,14 +9,27 @@ interface ProductHeadProps {
   imageSrc: string;
   id: string;
   currentUser?: User | null;
+  userId?: string;
 }
 
 const ProductHead = ({
-  title, imageSrc, id, currentUser
+  title, imageSrc, id, currentUser, userId,
 }: ProductHeadProps) => {
   return (
     <>
-      <LocalNav title={title} />
+      <LocalNav 
+        title={title} 
+        menuItems={
+          currentUser?.id === userId
+            ? [
+                {
+                  label: "삭제",
+                  onClick: () => console.log("게시글 삭제"),
+                }
+              ]
+            : undefined
+        }
+      />
       <div 
         className='
           w-full h-[35vh] md:h-[70vh] overflow-hidden rounded-xl relative bg-neutral-300

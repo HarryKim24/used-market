@@ -26,7 +26,7 @@ const ProductInfo = ({
           <Avatar src={user?.image} />
           <p>{user?.name}</p>
         </div>
-        <div className='text-sm text-neutral-500'>
+        <div className='text-xs text-neutral-500'>
           {
             formatTime(createdAt)
           }
@@ -42,7 +42,7 @@ const ProductInfo = ({
         />
       }
       <hr className="border-[#d2d2d7] py-2" />
-      <div className='pb-4'>
+      <div className='pb-2 text-sm'>
         {description}
       </div>
       <hr className="border-[#d2d2d7] py-2 block md:hidden" />
