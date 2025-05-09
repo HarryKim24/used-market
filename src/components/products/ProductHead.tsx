@@ -1,7 +1,7 @@
 'use client';
 
 import { User } from '@/types/user';
-import React from 'react';
+import React, { useState } from 'react';
 import LocalNav from '../nav/LocalNav';
 import Image from 'next/image';
 import HeartButton from '../HeartButton';
@@ -19,6 +19,7 @@ const ProductHead = ({
   title, imageSrc, id, currentUser, userId,
 }: ProductHeadProps) => {
   const router = useRouter();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleDelete = async () => {
     const confirmDelete = confirm("정말 삭제하시겠습니까?");
@@ -56,24 +57,41 @@ const ProductHead = ({
             : undefined
         }
       />
+
       <div 
-        className='
-          w-full h-[35vh] md:h-[70vh] overflow-hidden rounded-xl relative bg-neutral-300
-        '
+        className="w-full h-[35vh] md:h-[70vh] overflow-hidden rounded-xl relative bg-neutral-300 cursor-pointer"
+        onClick={() => setIsModalOpen(true)}
       >
         <Image
           src={imageSrc}
           fill
-          className='object-contain w-full'
+          className="object-cover w-full"
           alt={`${title} image`}
         />
-        <div className='absolute top-5 right-5'>
+        <div className="absolute top-5 right-5">
           <HeartButton
             productId={id}
             currentUser={currentUser}
           />
         </div>
       </div>
+
+      {isModalOpen && (
+        <div
+          className="fixed inset-0 z-50 bg-black/30 backdrop-blur-sm flex items-center justify-center"
+          onClick={() => setIsModalOpen(false)}
+        >
+          <div className="relative w-auto max-w-3xl bg-neutral-500/80 max-h-[90vh] rounded-lg overflow-hidden shadow-lg">
+            <Image
+              src={imageSrc}
+              alt="Full view"
+              width={800}
+              height={800}
+              className="object-contain max-w-full max-h-[90vh]"
+            />
+          </div>
+        </div>
+      )}
     </>
   );
 };
