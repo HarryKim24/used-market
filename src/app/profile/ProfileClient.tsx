@@ -21,10 +21,7 @@ const ProfileClient = ({ currentUser, products, favoriteProducts }: ProfileClien
 
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
-
-    if (tab !== "판매 내역") {
-      router.replace(pathname);
-    }
+    router.replace(pathname);
   };
 
   const renderContent = () => {
