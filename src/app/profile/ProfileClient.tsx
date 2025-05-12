@@ -7,7 +7,7 @@ import ProductList from "../../components/ProductList";
 
 const tabs = ["프로필", "관심 목록", "판매 내역"];
 
-export default function ProfileContent({ currentUser, products }: any) {
+export default function ProfileContent({ currentUser, products, favoriteProducts}: any) {
   const [activeTab, setActiveTab] = useState("프로필");
   const router = useRouter();
   const pathname = usePathname();
@@ -20,37 +20,33 @@ export default function ProfileContent({ currentUser, products }: any) {
     }
   };
 
-const renderContent = () => {
-  switch (activeTab) {
-    case "프로필":
-      return <ProfileEdit />;
-    case "관심 목록": {
-      const favoriteProducts = products.filter((product: any) =>
-        currentUser.favoriteIds?.includes(product._id)
-      );
-      return (
-        <ProductList
-          products={{
-            data: favoriteProducts,
-            totalItems: favoriteProducts.length,
-          }}
-          currentUser={currentUser}
-          searchDisabled
-        />
-      );
+  const renderContent = () => {
+    switch (activeTab) {
+      case "프로필":
+        return <ProfileEdit />;
+      case "관심 목록":
+        return (
+          <ProductList
+            products={{
+              data: favoriteProducts,
+              totalItems: favoriteProducts.length,
+            }}
+            currentUser={currentUser}
+            searchDisabled
+          />
+        );
+      case "판매 내역":
+        return (
+          <ProductList
+            products={{ data: products, totalItems: products.length }}
+            currentUser={currentUser}
+            searchDisabled
+          />
+        );
+      default:
+        return null;
     }
-    case "판매 내역":
-      return (
-        <ProductList
-          products={{ data: products, totalItems: products.length }}
-          currentUser={currentUser}
-          searchDisabled
-        />
-      );
-    default:
-      return null;
-  }
-};
+  };
 
 
   return (
