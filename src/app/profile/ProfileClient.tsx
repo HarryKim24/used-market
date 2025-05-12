@@ -56,7 +56,7 @@ const ProfileClient = ({ currentUser, products, favoriteProducts }: ProfileClien
   };
 
   return (
-    <div className="flex gap-4 mt-4 flex-col sm:flex-row">
+    <div className="flex gap-4 mt-6 flex-col sm:flex-row">
       <div className="w-full sm:w-40 flex flex-row sm:flex-col gap-2 justify-center sm:justify-start">
         {tabs.map((tab) => (
           <button
