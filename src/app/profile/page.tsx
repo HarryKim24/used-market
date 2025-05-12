@@ -1,9 +1,9 @@
-import React from 'react';
-import LocalNav from '@/components/nav/LocalNav';
-import Container from '@/components/Container';
-import getCurrentUser from '../actions/getCurrentUser';
-import getMyProducts from '../actions/getMyProducts';
-import ProfileContent from '@/components/ProfileContent';
+import React from "react";
+import LocalNav from "@/components/nav/LocalNav";
+import Container from "@/components/Container";
+import getCurrentUser from "../actions/getCurrentUser";
+import getMyProducts from "../actions/getMyProducts";
+import ProfileContent from "@/app/profile/ProfileClient";
 
 const ProfilePage = async () => {
   const currentUser = await getCurrentUser();
