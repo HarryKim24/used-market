@@ -8,8 +8,7 @@ export interface Params {
 export default async function getProductById(params: Params) {
   try {
     const { productId } = params;
-
-    if (!productId) return null;
+    if (!productId || !ObjectId.isValid(productId)) return null;
 
     const client = await clientPromise;
     const db = client.db();
@@ -20,7 +19,7 @@ export default async function getProductById(params: Params) {
     if (!product) return null;
 
     let user = null;
-    if (product.userId) {
+    if (product.userId && ObjectId.isValid(product.userId)) {
       user = await usersCollection.findOne({ _id: new ObjectId(product.userId) });
     }
 
@@ -34,7 +33,7 @@ export default async function getProductById(params: Params) {
         ? (() => {
             const { _id: userObjectId, ...userWithoutId } = user;
             return {
-              id: product.userId.toString(),
+              id: userObjectId.toString(),
               ...userWithoutId,
               createdAt: user.createdAt ? new Date(user.createdAt).toISOString() : null,
             };
@@ -43,6 +42,6 @@ export default async function getProductById(params: Params) {
     };
 
   } catch (error: any) {
-    throw new Error(error);
+    throw new Error(error.message || 'Failed to fetch product');
   }
 }

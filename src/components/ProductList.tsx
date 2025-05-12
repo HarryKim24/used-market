@@ -16,9 +16,10 @@ interface ProductListProps {
     totalItems: number;
   };
   currentUser: User | null;
+  searchDisabled?: boolean;
 }
 
-const ProductList = ({ products, currentUser }: ProductListProps) => {
+const ProductList = ({ products, currentUser, searchDisabled = false }: ProductListProps) => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -43,6 +44,8 @@ const ProductList = ({ products, currentUser }: ProductListProps) => {
   }, [searchQuery, setValue]);
 
   const onSearch = (data: any) => {
+    if (searchDisabled) return;
+
     const params = new URLSearchParams(searchParams.toString());
 
     if (data.search) {
@@ -57,9 +60,10 @@ const ProductList = ({ products, currentUser }: ProductListProps) => {
 
   const filtered = products.data.filter((item) => {
     const matchesCategory = category ? item.category === category : true;
-    const matchesSearch = item.title
-      .toLowerCase()
-      .includes(searchQuery.toLowerCase());
+    const matchesSearch = searchDisabled
+      ? true
+      : item.title.toLowerCase().includes(searchQuery.toLowerCase());
+
     return matchesCategory && matchesSearch;
   });
 
@@ -72,20 +76,22 @@ const ProductList = ({ products, currentUser }: ProductListProps) => {
 
   return (
     <>
-      <form
-        onSubmit={handleSubmit(onSearch)}
-        className="px-2 pt-6 max-w-2xl mx-auto w-full"
-      >
-        <div className="h-full w-50 sm:w-80 md:w-100 lg:w-120 mx-auto">
-          <Input
-            id="search"
-            label="상품 검색"
-            register={register}
-            errors={errors}
-            searchMode
-          />
-        </div>
-      </form>
+      {!searchDisabled && (
+        <form
+          onSubmit={handleSubmit(onSearch)}
+          className="px-2 pt-6 max-w-2xl mx-auto w-full"
+        >
+          <div className="h-full w-50 sm:w-80 md:w-100 lg:w-120 mx-auto">
+            <Input
+              id="search"
+              label="상품 검색"
+              register={register}
+              errors={errors}
+              searchMode
+            />
+          </div>
+        </form>
+      )}
 
       <div
         className="grid grid-cols-1 gap-3 pt-8 px-4

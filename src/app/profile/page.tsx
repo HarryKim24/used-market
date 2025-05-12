@@ -1,16 +1,20 @@
-import React from 'react'
-import getCurrentUser from '../actions/getCurrentUser'
+import React from 'react';
+import LocalNav from '@/components/nav/LocalNav';
+import Container from '@/components/Container';
+import getCurrentUser from '../actions/getCurrentUser';
+import getMyProducts from '../actions/getMyProducts';
+import ProfileContent from '@/components/ProfileContent';
 
 const ProfilePage = async () => {
-
-  const userData = await getCurrentUser();
-  console.log('userData', userData);
+  const currentUser = await getCurrentUser();
+  const products = await getMyProducts(currentUser?.id);
 
   return (
-    <div>
-      ProfilePage
-    </div>
-  )
-}
+    <Container>
+      <LocalNav title="중고장터 계정" />
+      <ProfileContent currentUser={currentUser} products={products} />
+    </Container>
+  );
+};
 
-export default ProfilePage
+export default ProfilePage;
