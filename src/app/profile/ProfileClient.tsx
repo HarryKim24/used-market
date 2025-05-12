@@ -4,10 +4,17 @@ import { useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import ProfileEdit from "../../components/ProfileEdit";
 import ProductList from "../../components/ProductList";
+import { User } from "@/types/user";
+
+interface ProfileClientProps {
+  currentUser: User | null;
+  products: any;
+  favoriteProducts: any;
+}
 
 const tabs = ["프로필", "관심 목록", "판매 내역"];
 
-export default function ProfileContent({ currentUser, products, favoriteProducts}: any) {
+const ProfileClient = ({ currentUser, products, favoriteProducts }: ProfileClientProps) => {
   const [activeTab, setActiveTab] = useState("프로필");
   const router = useRouter();
   const pathname = usePathname();
@@ -48,7 +55,6 @@ export default function ProfileContent({ currentUser, products, favoriteProducts
     }
   };
 
-
   return (
     <div className="flex gap-4 mt-4 flex-col sm:flex-row">
       <div className="w-full sm:w-40 flex flex-row sm:flex-col gap-2 justify-center sm:justify-start">
@@ -68,4 +74,6 @@ export default function ProfileContent({ currentUser, products, favoriteProducts
       <div className="flex-1">{renderContent()}</div>
     </div>
   );
-}
+};
+
+export default ProfileClient;
