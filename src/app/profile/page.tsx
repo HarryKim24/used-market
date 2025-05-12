@@ -11,7 +11,7 @@ const ProfilePage = async () => {
 
   return (
     <Container>
-      <LocalNav title="중고장터 계정" />
+      <LocalNav title="내 프로필" />
       <ProfileContent currentUser={currentUser} products={products} />
     </Container>
   );

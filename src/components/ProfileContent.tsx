@@ -47,7 +47,8 @@ export default function ProfileContent({ currentUser, products }: any) {
           <button
             key={tab}
             onClick={() => handleTabClick(tab)}
-            className={`py-2 px-4 ${activeTab === tab ? '' : ''}`}
+            className={`py-2 px-4 font-bold hover:text-[#0071e3] ${activeTab === tab ? 'text-[#0071e3]' : ''}`}
+
           >
             {tab}
           </button>

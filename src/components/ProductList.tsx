@@ -58,15 +58,19 @@ const ProductList = ({ products, currentUser, searchDisabled = false }: ProductL
     router.push(`?${params.toString()}`);
   };
 
-  const filtered = products.data.filter((item) => {
+  const sorted = [...products.data].sort((a, b) => {
+    return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+  });
+
+  
+  const filtered = sorted.filter((item) => {
     const matchesCategory = category ? item.category === category : true;
     const matchesSearch = searchDisabled
       ? true
       : item.title.toLowerCase().includes(searchQuery.toLowerCase());
-
     return matchesCategory && matchesSearch;
   });
-
+  
   const paged = filtered.slice(
     (page - 1) * PRODUCTS_PER_PAGE,
     page * PRODUCTS_PER_PAGE
