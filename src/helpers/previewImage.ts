@@ -6,7 +6,6 @@ export const previewImage = (e: any, setImagePreview: any, setImage: any) => {
   const reader = new FileReader();
   reader.readAsDataURL(file);
   reader.onload = () => {
-    console.log(reader.result);
     setImagePreview(reader.result);
   }
 }

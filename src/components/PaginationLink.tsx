@@ -25,8 +25,6 @@ const PaginationLink = ({
   if (params) {
     currentQuery = qs.parse(params.toString());
   }
-  
-  console.log('currentQuery:', currentQuery);
 
   const updatedQuery = {
     ...currentQuery,

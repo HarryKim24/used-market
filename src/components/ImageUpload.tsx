@@ -13,7 +13,6 @@ const ImageUpload = ({
 }: ImageUploadProps) => {
 
   const handleUpload = (result: any) => {
-    console.log('result', result);
     onChange(result.info.secure_url);
   }
 

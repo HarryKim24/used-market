@@ -29,7 +29,6 @@ const Pagination = ({
     <div className='flex items-center justify-center gap-2 mt-4'>
       {[...arr].map((_, i) => {
         const { page, disabled, current } = getPageItem(i);
-        console.log('page, disabled, current', page, disabled, current);
         if (page === 'previous') {
           return (
           <PaginationLink 

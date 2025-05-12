@@ -11,8 +11,6 @@ const ProductPage = async ({ params }: { params: Promise<Params> }) => {
   const product = await getProductById(resolvedParams);
   const currentUser = await getCurrentUser();
 
-  console.log('product', product);
-
   if (!product) {
     return (<EmptyState />);
   }
