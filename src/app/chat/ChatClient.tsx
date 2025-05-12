@@ -28,7 +28,6 @@ const ChatClient = ({ currentUser }: ChatClientProps) => {
 
   const currentUserWithMessage = users?.find((user: TUserWithChat) => user.email === currentUser?.email)
 
-  if (isLoading) return <p>Loading...</p>
   if (error) return <p>Error!</p> 
 
   return (

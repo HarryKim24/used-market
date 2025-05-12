@@ -10,6 +10,7 @@ import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import LocalNav from "@/components/nav/LocalNav";
 
 const ProductUploadPage = () => {
   const router = useRouter();
@@ -21,7 +22,6 @@ const ProductUploadPage = () => {
     setValue,
     watch,
     formState: { errors },
-    reset,
   } = useForm<FieldValues>({
     defaultValues: {
       title: "",
@@ -64,8 +64,9 @@ const ProductUploadPage = () => {
   };
 
   return (
-    <Container localNavTitle="상품 업로드">
-      <div className="max-w-120 mx-auto">
+    <Container>
+      <LocalNav title="상품 업로드" />
+      <div className="max-w-120 mx-auto mt-6">
         <form className="flex flex-col gap-8" onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col gap-2">
             <h4 className="text-md font-medium">이미지 등록</h4>

@@ -69,9 +69,6 @@ const Contacts = ({
   
       if (!res.ok) throw new Error('삭제 실패')
   
-      const data = await res.json()
-      console.log('삭제된 개수:', data.modifiedCount)
-  
       setSelectedUserIds([])
       setIsEditMode(false)
     } catch (err) {
@@ -106,7 +103,7 @@ const Contacts = ({
       </div>
 
       <div className="flex flex-col">
-        {users.length > 0 &&
+        {users?.length > 0 &&
           users
             .filter((user) => user.id !== currentUser.id)
             .map((user) => {

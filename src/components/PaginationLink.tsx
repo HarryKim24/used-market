@@ -17,16 +17,12 @@ const PaginationLink = ({
 }: PaginationLinkProps) => {
 
   const params = useSearchParams();
-  const limit = PRODUCTS_PER_PAGE;
-  const skip = page ? (Number(page) - 1) * limit : 0;
 
   let currentQuery = {};
 
   if (params) {
     currentQuery = qs.parse(params.toString());
   }
-  
-  console.log('currentQuery:', currentQuery);
 
   const updatedQuery = {
     ...currentQuery,
