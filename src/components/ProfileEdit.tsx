@@ -45,25 +45,42 @@ const ProfileEdit = ({ currentUser }: ProfileEditProps) => {
 
   const newPassword = watch("newPassword");
 
-  const onSubmit = (data: FieldValues) => {
+  const onSubmit = async (data: FieldValues) => {
     if (data.newPassword && data.newPassword !== data.confirmPassword) {
-      alert("비밀번호가 일치하지 않습니다.");
       return;
     }
-
-    console.log("저장할 값:", {
-      name: data.name,
-      newPassword: data.newPassword || undefined,
-    });
-
-    setIsEditing(false);
-    reset({
-      name: data.name,
-      newPassword: "",
-      confirmPassword: "",
-    });
+  
+    try {
+      const response = await fetch("/api/profile", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: data.name,
+          newPassword: data.newPassword || undefined,
+        }),
+      });
+  
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.log(`업데이트 실패: ${errorText}`);
+        return;
+      }
+  
+      alert("회원정보가 성공적으로 수정되었습니다.");
+      setIsEditing(false);
+      reset({
+        name: data.name,
+        newPassword: "",
+        confirmPassword: "",
+      });
+      window.location.reload();
+    } catch (error) {
+      console.error("프로필 수정 오류:", error);
+    }
   };
-
+  
   const handleDeleteAccount = () => {
     const confirmDelete = confirm("정말 회원 탈퇴하시겠습니까?");
     if (confirmDelete) {
@@ -105,8 +122,12 @@ const ProfileEdit = ({ currentUser }: ProfileEditProps) => {
             disabled={false}
             register={register}
             errors={errors}
-            required
-            validate={validateName}
+            validate={(value: string) => {
+              if (value && value !== currentUser.name) {
+                return validateName(value);
+              }
+              return true;
+            }}
           />
         )}
 
@@ -118,18 +139,26 @@ const ProfileEdit = ({ currentUser }: ProfileEditProps) => {
               type="password"
               register={register}
               errors={errors}
-              validate={validateName}
+              validate={(value: string) => {
+                if (value?.trim()) {
+                  return validatePassword(value);
+                }
+                return true;
+              }}
             />
-            <Input
-              id="confirmPassword"
-              label="비밀번호 확인"
-              type="password"
-              register={register}
-              errors={errors}
-              validate={(value: string) =>
-                value === newPassword || "비밀번호가 일치하지 않습니다."
-              }
-            />
+              <Input
+                id="confirmPassword"
+                label="비밀번호 확인"
+                type="password"
+                register={register}
+                errors={errors}
+                validate={(value: string) => {
+                  if (newPassword?.trim()) {
+                    return value === newPassword || "비밀번호가 일치하지 않습니다.";
+                  }
+                  return true;
+                }}
+              />
           </>
         )}
 
