@@ -27,7 +27,7 @@ const ProfileClient = ({ currentUser, products, favoriteProducts }: ProfileClien
   const renderContent = () => {
     switch (activeTab) {
       case "프로필":
-        return <ProfileEdit />;
+        return <ProfileEdit currentUser={currentUser} />;
       case "관심 목록":
         return (
           <ProductList

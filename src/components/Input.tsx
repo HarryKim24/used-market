@@ -13,7 +13,7 @@ interface InputProps<T extends FieldValues> {
   errors: FieldErrors<T>;
   validate?: (value: string) => true | string;
   onIconClick?: () => void;
-  searchMode?: boolean; 
+  searchMode?: boolean;
 }
 
 const Input = <T extends FieldValues>({
@@ -33,7 +33,7 @@ const Input = <T extends FieldValues>({
     setIsFocused(true);
   };
 
-  const shouldFloatLabel = isFocused || hasValue;
+  const shouldFloatLabel = label === "이름" || isFocused || hasValue;
 
   return (
     <div className="relative w-full">
@@ -54,7 +54,6 @@ const Input = <T extends FieldValues>({
           border outline-none transition-all duration-200
           disabled:opacity-50 disabled:cursor-not-allowed
           ${formatPrice ? 'pl-10' : 'pl-4'}
-
           ${
             errors[id]
               ? 'border-rose-500 focus:border-rose-500 focus:ring-0'
