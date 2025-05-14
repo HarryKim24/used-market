@@ -5,6 +5,7 @@ import NavItem from './NavItem'
 import { AnimatePresence, motion } from 'framer-motion'
 import HamburgerButton from './HamburgerButton'
 import { User } from '@/types/user'
+import { LuRabbit } from "react-icons/lu";
 
 interface NavbarProps {
   currentUser?: User | null;
@@ -46,14 +47,14 @@ const Navbar = ({ currentUser }: NavbarProps) => {
       fixed top-0 left-0 z-50 w-full 
       bg-white/70 backdrop-blur-2xl
     `}>
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mx-5 sm:mx-10 lg:mx-20">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mx-5 lg:mx-10">
         <div className="flex items-center justify-between w-full text-2xl h-14">
           <div className="w-fit">
             <motion.div
               animate={{ opacity: menuOpen ? 0 : 1 }}
               transition={{ duration: 0.3, ease: 'easeInOut' }}
             >
-              <Link href="/">Logo</Link>
+              <Link href="/"><LuRabbit size={32} /></Link>
             </motion.div>
           </div>
           <div className="sm:hidden cursor-pointer">

@@ -3,7 +3,6 @@ import Button from "@/components/Button";
 import { categories } from "@/components/categories/Categories";
 import CategoryInput from "@/components/categories/CategoryInput";
 import Container from "@/components/Container";
-import ImageUpload from "@/components/ImageUpload";
 import Input from "@/components/Input";
 import axios from "axios";
 import dynamic from "next/dynamic";
@@ -11,6 +10,25 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import LocalNav from "@/components/nav/LocalNav";
+
+const ImageUpload = dynamic(() => import("@/components/ImageUpload"), {
+  ssr: false,
+  loading: () => (
+    <div
+      className="
+        relative flex flex-col items-center justify-center gap-4 p-20
+        border border-dashed rounded-xl
+        border-[#1d1d1f] bg-neutral-100 animate-pulse
+        text-neutral-400
+      "
+    >
+      <div className="w-12 h-12 bg-neutral-300 rounded-md" />
+      <div className="w-32 h-4 bg-neutral-300 rounded" />
+    </div>
+  ),
+});
+
+
 
 const ProductUploadPage = () => {
   const router = useRouter();
@@ -40,8 +58,18 @@ const ProductUploadPage = () => {
   const latitude = watch("latitude");
   const longitude = watch("longitude");
 
-  const KakaoMap = dynamic(() => import("../../../components/kakao/KakaoMap"), {
+  const KakaoMap = dynamic(() => import("@/components/kakao/KakaoMap"), {
     ssr: false,
+    loading: () => (
+      <div
+        className="
+          w-full h-[300px] rounded-lg bg-neutral-100 border border-dashed border-[#1d1d1f]
+          animate-pulse flex items-center justify-center text-neutral-400
+        "
+      >
+        <div className="text-sm">지도를 불러오는 중...</div>
+      </div>
+    ),
   });
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {

@@ -63,7 +63,7 @@ const ChatUser = ({
           {latestMessage && <p>{fromNow(latestMessage.createdAt)}</p>}
         </div>
       </div>
-      <div className="mt-4 h-px bg-neutral-300 mx-2" />
+      <div className="mt-4 h-px bg-neutral-300" />
     </div>
   );
 };

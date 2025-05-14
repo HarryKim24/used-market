@@ -77,7 +77,7 @@ const Contacts = ({
   }  
 
   return (
-    <div className="w-full overflow-auto h-[calc(100vh_-_56px)] border-[#d2d2d7] border-r-[1px]">
+    <div className="w-full overflow-auto h-[calc(100vh_-_56px)] border-[#d2d2d7] pl-3 pr-3 border-r-[1px]">
       <div className="flex items-center justify-between px-3 py-2">
         <h1 className="text-3xl font-semibold">채팅</h1>
 
