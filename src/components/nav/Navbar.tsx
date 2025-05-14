@@ -47,7 +47,7 @@ const Navbar = ({ currentUser }: NavbarProps) => {
       fixed top-0 left-0 z-50 w-full 
       bg-white/70 backdrop-blur-2xl
     `}>
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mx-5 sm:mx-10 lg:mx-20">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mx-5 lg:mx-10">
         <div className="flex items-center justify-between w-full text-2xl h-14">
           <div className="w-fit">
             <motion.div
