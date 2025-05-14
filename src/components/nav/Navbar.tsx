@@ -5,6 +5,7 @@ import NavItem from './NavItem'
 import { AnimatePresence, motion } from 'framer-motion'
 import HamburgerButton from './HamburgerButton'
 import { User } from '@/types/user'
+import { LuRabbit } from "react-icons/lu";
 
 interface NavbarProps {
   currentUser?: User | null;
@@ -53,7 +54,7 @@ const Navbar = ({ currentUser }: NavbarProps) => {
               animate={{ opacity: menuOpen ? 0 : 1 }}
               transition={{ duration: 0.3, ease: 'easeInOut' }}
             >
-              <Link href="/">Logo</Link>
+              <Link href="/"><LuRabbit size={32} /></Link>
             </motion.div>
           </div>
           <div className="sm:hidden cursor-pointer">
