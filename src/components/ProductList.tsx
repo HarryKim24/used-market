@@ -17,9 +17,11 @@ interface ProductListProps {
   };
   currentUser: User | null;
   searchDisabled?: boolean;
+  type?: "favorite" | "selling";
 }
 
-const ProductList = ({ products, currentUser, searchDisabled = false }: ProductListProps) => {
+
+const ProductList = ({ products, currentUser, searchDisabled = false, type }: ProductListProps) => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -76,7 +78,17 @@ const ProductList = ({ products, currentUser, searchDisabled = false }: ProductL
     page * PRODUCTS_PER_PAGE
   );
 
-  if (paged.length === 0) return <EmptyState />;
+  if (paged.length === 0) {
+    const props =
+      type === "favorite"
+        ? { title: "관심 목록이 비어 있습니다.", subtitle: "관심 상품을 추가해보세요.", hideReset: true }
+        : type === "selling"
+          ? { title: "판매 중인 상품이 없습니다.", subtitle: "상품을 등록해보세요.", hideReset: true }
+          : {};
+  
+    return <EmptyState {...props} />;
+  }
+  
 
   return (
     <>

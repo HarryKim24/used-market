@@ -210,7 +210,7 @@ const ProfileEdit = ({ currentUser }: ProfileEditProps) => {
       <div className="text-right">
         <button
           onClick={handleDeleteAccount}
-          className="text-red-500 hover:underline text-sm px-3"
+          className="text-red-500 hover:underline text-sm px-3 cursor-pointer"
         >
           회원 탈퇴
         </button>

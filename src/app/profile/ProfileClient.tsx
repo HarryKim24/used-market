@@ -37,6 +37,7 @@ const ProfileClient = ({ currentUser, products, favoriteProducts }: ProfileClien
             }}
             currentUser={currentUser}
             searchDisabled
+            type="favorite"
           />
         );
       case "판매 내역":
@@ -45,6 +46,7 @@ const ProfileClient = ({ currentUser, products, favoriteProducts }: ProfileClien
             products={{ data: products, totalItems: products.length }}
             currentUser={currentUser}
             searchDisabled
+            type="selling"
           />
         );
       default:
