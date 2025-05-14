@@ -11,6 +11,21 @@ interface ProfileEditProps {
   currentUser: User | null;
 }
 
+const NAME_REGEX = /^(?=.*[a-zA-Z가-힣])[a-zA-Z가-힣0-9]{2,}$/;
+const PASSWORD_REGEX = /^(?=.*[a-zA-Z])[a-zA-Z0-9]{8,}$/;
+
+const validateName = (value: string) =>
+  NAME_REGEX.test(value) || "이름은 한글 또는 영문을 포함해야 하며, 2자 이상이어야 합니다.";
+
+const validatePassword = (value: string) => {
+  if (!value.trim()) return "비밀번호를 입력해주세요.";
+  if (!PASSWORD_REGEX.test(value)) {
+    return "비밀번호는 8자 이상이어야 하며, 영문을 반드시 포함해야 합니다.";
+  }
+  return true;
+};
+
+
 const ProfileEdit = ({ currentUser }: ProfileEditProps) => {
   const [isEditing, setIsEditing] = useState(false);
 
@@ -91,6 +106,7 @@ const ProfileEdit = ({ currentUser }: ProfileEditProps) => {
             register={register}
             errors={errors}
             required
+            validate={validateName}
           />
         )}
 
@@ -102,6 +118,7 @@ const ProfileEdit = ({ currentUser }: ProfileEditProps) => {
               type="password"
               register={register}
               errors={errors}
+              validate={validateName}
             />
             <Input
               id="confirmPassword"
