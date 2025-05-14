@@ -79,7 +79,7 @@ const LoginPage = () => {
 
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-80 sm:w-120 space-y-6 py-32 mx-auto"
+        className="w-60 sm:w-120 space-y-6 py-32 mx-auto"
       >
         <h3 className="text-4xl font-bold text-center text-[#1d1d1f]">로그인</h3>
 
