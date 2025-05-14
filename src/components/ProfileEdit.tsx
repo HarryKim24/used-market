@@ -38,6 +38,7 @@ const ProfileEdit = ({ currentUser }: ProfileEditProps) => {
   } = useForm<FieldValues>({
     defaultValues: {
       name: currentUser?.name || "",
+      currentPassword: "",
       newPassword: "",
       confirmPassword: "",
     },
@@ -58,6 +59,7 @@ const ProfileEdit = ({ currentUser }: ProfileEditProps) => {
         },
         body: JSON.stringify({
           name: data.name,
+          currentPassword: data.currentPassword,
           newPassword: data.newPassword || undefined,
         }),
       });
@@ -133,6 +135,19 @@ const ProfileEdit = ({ currentUser }: ProfileEditProps) => {
 
         {isEditing && (
           <>
+            <Input
+              id="currentPassword"
+              label="현재 비밀번호"
+              type="password"
+              register={register}
+              errors={errors}
+              validate={(value: string) => {
+                if (newPassword?.trim()) {
+                  return value.trim() !== "" || "현재 비밀번호를 입력해주세요.";
+                }
+                return true;
+              }}
+            />
             <Input
               id="newPassword"
               label="새 비밀번호"
