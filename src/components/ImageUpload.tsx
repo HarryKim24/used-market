@@ -1,6 +1,8 @@
+'use client';
+
 import { CldUploadWidget } from 'next-cloudinary';
 import Image from 'next/image';
-import React from 'react'
+import React, { useCallback, useState } from 'react';
 import { TbPhotoPlus } from 'react-icons/tb';
 
 interface ImageUploadProps {
@@ -8,46 +10,53 @@ interface ImageUploadProps {
   value: string;
 }
 
-const ImageUpload = ({
-  onChange, value
-}: ImageUploadProps) => {
+const ImageUpload = ({ onChange, value }: ImageUploadProps) => {
+  const [isUploading, setIsUploading] = useState(false);
 
-  const handleUpload = (result: any) => {
+  const handleUpload = useCallback((result: any) => {
+    setIsUploading(false);
     onChange(result.info.secure_url);
-  }
+  }, [onChange]);
 
   const uploadPreset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
 
   return (
     <CldUploadWidget
+      onUpload={() => setIsUploading(true)}
       onSuccess={handleUpload}
       uploadPreset={uploadPreset}
       options={{ maxFiles: 1 }}
     >
-      {({ open }) => {
-        return (
-          <div 
-            onClick={() => open?.()}
-            className='
-              relative flex flex-col items-center justify-center gap-4 p-20
-              transition border-1 border-dashed rounded-xl cursor-pointer
-              text-neutral-500 border-[#1d1d1f] overflow-hidden
-            '
-          >
-            <TbPhotoPlus size={50} />
-            {value && (
-              <div className='absolute inset-0 w-full h-full'>
-                <Image
-                  fill style={{ objectFit: 'cover' }}
-                  src={value} alt=''
-                />
-              </div>
-            )}
-          </div>
-        )
-      }}
+      {({ open }) => (
+        <div
+          role="button"
+          onClick={() => !isUploading && open?.()}
+          className={`
+            relative flex flex-col items-center justify-center gap-4 p-20
+            transition border border-dashed rounded-xl cursor-pointer
+            text-neutral-500 border-[#1d1d1f] overflow-hidden
+            hover:bg-neutral-100
+            ${isUploading ? 'opacity-50 cursor-not-allowed' : ''}
+          `}
+          aria-disabled={isUploading}
+        >
+          <TbPhotoPlus size={50} />
+          <div className="text-sm">{isUploading ? '업로드 중...' : '이미지를 선택하세요'}</div>
+          {value && !isUploading && (
+            <div className="absolute inset-0 w-full h-full">
+              <Image
+                src={value}
+                alt="업로드된 이미지"
+                fill
+                style={{ objectFit: 'cover' }}
+                sizes="100vw"
+              />
+            </div>
+          )}
+        </div>
+      )}
     </CldUploadWidget>
-  )
-}
+  );
+};
 
-export default ImageUpload
+export default React.memo(ImageUpload);
