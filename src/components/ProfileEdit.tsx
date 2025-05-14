@@ -6,6 +6,8 @@ import { useForm, FieldValues } from "react-hook-form";
 import Input from "@/components/Input";
 import Button from "@/components/Button";
 import { formatTime } from "@/helpers/dayjs";
+import DeleteConfirmModal from "@/components/DeleteConfirmModal";
+import { signOut } from "next-auth/react";
 
 interface ProfileEditProps {
   currentUser: User | null;
@@ -25,9 +27,9 @@ const validatePassword = (value: string) => {
   return true;
 };
 
-
 const ProfileEdit = ({ currentUser }: ProfileEditProps) => {
   const [isEditing, setIsEditing] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const {
     register,
@@ -41,112 +43,103 @@ const ProfileEdit = ({ currentUser }: ProfileEditProps) => {
       currentPassword: "",
       newPassword: "",
       confirmPassword: "",
+      deletePassword: "",
     },
   });
 
   const newPassword = watch("newPassword");
 
   const onSubmit = async (data: FieldValues) => {
-    if (data.newPassword && data.newPassword !== data.confirmPassword) {
-      return;
-    }
-  
+    if (data.newPassword && data.newPassword !== data.confirmPassword) return;
+
     try {
-      const response = await fetch("/api/profile", {
+      const response = await fetch("/api/profile/edit", {
         method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: data.name,
           currentPassword: data.currentPassword,
           newPassword: data.newPassword || undefined,
         }),
       });
-  
+
       if (!response.ok) {
         const errorText = await response.text();
-        console.log(`업데이트 실패: ${errorText}`);
+        alert(`업데이트 실패: ${errorText}`);
         return;
       }
-  
+
       alert("회원정보가 성공적으로 수정되었습니다.");
       setIsEditing(false);
-      reset({
-        name: data.name,
-        newPassword: "",
-        confirmPassword: "",
-      });
+      reset();
       window.location.reload();
     } catch (error) {
       console.error("프로필 수정 오류:", error);
     }
   };
-  
-  const handleDeleteAccount = () => {
-    const confirmDelete = confirm("정말 회원 탈퇴하시겠습니까?");
-    if (confirmDelete) {
-      console.log("회원 탈퇴 진행");
-    }
-  };
 
-  if (!currentUser) {
-    return <div>유저 정보를 불러올 수 없습니다.</div>;
+const handleDeleteAccount = async () => {
+  const deletePassword = watch("deletePassword");
+  if (!deletePassword) {
+    alert("비밀번호를 입력해주세요.");
+    return;
   }
+
+  try {
+    const res = await fetch("/api/profile/delete", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ currentPassword: deletePassword }),
+    });
+
+    if (!res.ok) {
+      const errorText = await res.text();
+      alert(`${errorText}`);
+      return;
+    }
+
+    alert("회원 탈퇴가 완료되었습니다.");
+
+    await signOut({ callbackUrl: "/" });
+
+  } catch (error) {
+    console.error("회원 탈퇴 오류:", error);
+  }
+};
+
+  if (!currentUser) return <div>유저 정보를 불러올 수 없습니다.</div>;
 
   return (
     <div className="w-60 sm:w-120 space-y-6 mx-auto">
       <div>
         <h2 className="text-xl font-semibold mb-2">회원 정보</h2>
-
-        {!isEditing && (
-          <p>
-            <span className="font-medium">이름:</span> {currentUser.name}
-          </p>
-        )}
-        <p>
-          <span className="font-medium">이메일:</span> {currentUser.email}
-        </p>
-        <p>
-          <span className="font-medium">가입일:</span>{" "}
-          {currentUser.createdAt ? formatTime(currentUser.createdAt) : "정보 없음"}
-        </p>
+        {!isEditing && <p><span className="font-medium">이름:</span> {currentUser.name}</p>}
+        <p><span className="font-medium">이메일:</span> {currentUser.email}</p>
+        <p><span className="font-medium">가입일:</span> {currentUser.createdAt ? formatTime(currentUser.createdAt) : "정보 없음"}</p>
       </div>
 
-      <form 
-        className="space-y-6" 
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        {isEditing && (
-          <Input
-            id="name"
-            label="이름"
-            disabled={false}
-            register={register}
-            errors={errors}
-            validate={(value: string) => {
-              if (value && value !== currentUser.name) {
-                return validateName(value);
-              }
-              return true;
-            }}
-          />
-        )}
-
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         {isEditing && (
           <>
+            <Input
+              id="name"
+              label="이름"
+              disabled={false}
+              register={register}
+              errors={errors}
+              validate={(value: string) =>
+                value && value !== currentUser.name ? validateName(value) : true
+              }
+            />
             <Input
               id="currentPassword"
               label="현재 비밀번호"
               type="password"
               register={register}
               errors={errors}
-              validate={(value: string) => {
-                if (newPassword?.trim()) {
-                  return value.trim() !== "" || "현재 비밀번호를 입력해주세요.";
-                }
-                return true;
-              }}
+              validate={(value: string) =>
+                newPassword?.trim() ? !!value.trim() || "현재 비밀번호를 입력해주세요." : true
+              }
             />
             <Input
               id="newPassword"
@@ -154,67 +147,64 @@ const ProfileEdit = ({ currentUser }: ProfileEditProps) => {
               type="password"
               register={register}
               errors={errors}
-              validate={(value: string) => {
-                if (value?.trim()) {
-                  return validatePassword(value);
-                }
-                return true;
-              }}
+              validate={(value: string) =>
+                value?.trim() ? validatePassword(value) : true
+              }
             />
-              <Input
-                id="confirmPassword"
-                label="비밀번호 확인"
-                type="password"
-                register={register}
-                errors={errors}
-                validate={(value: string) => {
-                  if (newPassword?.trim()) {
-                    return value === newPassword || "비밀번호가 일치하지 않습니다.";
-                  }
-                  return true;
-                }}
-              />
+            <Input
+              id="confirmPassword"
+              label="비밀번호 확인"
+              type="password"
+              register={register}
+              errors={errors}
+              validate={(value: string) =>
+                newPassword?.trim() ? value === newPassword || "비밀번호가 일치하지 않습니다." : true
+              }
+            />
           </>
         )}
 
-        {isEditing ? (
-          <div className="flex justify-end gap-2">
-            <div className="w-100 sm:w-1000" />
-            <Button
-              label="취소"
-              outline
-              small
-              onClick={() => {
-                setIsEditing(false);
-                reset();
-              }}
-            />
-            <Button label="저장" small />
-          </div>
-
-        ) : (
-          <div className="w-full flex justify-end">
-            <div className="w-20">
+        <div className="flex justify-end gap-2">
+          {isEditing ? (
+            <>
+              <div className="w-100 sm:w-1000" />
               <Button
-                label="수정"
+                label="취소"
+                outline
                 small
-                onClick={() => setIsEditing(true)}
+                onClick={() => {
+                  setIsEditing(false);
+                  reset();
+                }}
               />
+              <Button label="저장" small />
+            </>
+          ) : (
+            <div className="w-20">
+              <Button label="수정" small onClick={() => setIsEditing(true)} />
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </form>
 
       <hr className="border-[#d2d2d7]" />
 
       <div className="text-right">
         <button
-          onClick={handleDeleteAccount}
+          onClick={() => setShowDeleteModal(true)}
           className="text-red-500 hover:underline text-sm px-3 cursor-pointer"
         >
           회원 탈퇴
         </button>
       </div>
+
+      <DeleteConfirmModal
+        isOpen={showDeleteModal}
+        onClose={() => setShowDeleteModal(false)}
+        onConfirm={handleDeleteAccount}
+        register={register}
+        errors={errors}
+      />
     </div>
   );
 };
