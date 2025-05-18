@@ -56,6 +56,7 @@ const Chat = ({
               messageText={message.text}
               messageImage={message.image}
               receiverName={receiver.receiverName}
+              senderName={currentUser.name ?? ''}
               time={message.createdAt}
             />
           ))}

@@ -114,7 +114,7 @@ const handleDeleteAccount = async () => {
       <div>
         <h2 className="text-xl font-semibold mb-2">회원 정보</h2>
         <div className="flex items-center gap-4 mb-4">
-          <div className="w-12 h-12 rounded-full bg-gray-400 flex items-center justify-center text-white font-bold text-lg select-none">
+          <div className="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center text-white font-bold text-lg select-none">
             {currentUser.name?.charAt(0).toUpperCase()}
           </div>
           <div>

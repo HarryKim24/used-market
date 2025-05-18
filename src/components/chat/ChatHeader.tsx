@@ -1,6 +1,5 @@
 import React from 'react'
 import { IoIosArrowBack } from 'react-icons/io'
-import Avatar from '../Avatar'
 import { formatTime } from '@/helpers/dayjs'
 
 interface ChatHeaderProps {
