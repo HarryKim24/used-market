@@ -45,7 +45,7 @@ const Navbar = ({ currentUser }: NavbarProps) => {
   return (
     <nav className={`
       fixed top-0 left-0 z-50 w-full 
-      bg-white/70 backdrop-blur-2xl
+      bg-white/70 backdrop-blur-lg
     `}>
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mx-5 lg:mx-10">
         <div className="flex items-center justify-between w-full text-2xl h-14">
