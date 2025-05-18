@@ -2,7 +2,7 @@ import { previewImage } from '@/helpers/previewImage';
 import { uploadImage } from '@/helpers/uploadImage';
 import React, { FormEvent, useRef, useState } from 'react'
 import { CgClose } from 'react-icons/cg';
-import { FaArrowUp, FaPlus } from 'react-icons/fa6';
+import { FaArrowUp } from 'react-icons/fa6';
 import { GoPlus } from 'react-icons/go';
 import useSWRMutation from 'swr/mutation';
 

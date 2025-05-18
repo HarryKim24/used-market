@@ -11,7 +11,6 @@ interface ContactsProps {
   setReceiver: (receiver: {
     receiverId: string
     receiverName: string
-    receiverImage: string
   }) => void
 }
 
@@ -35,12 +34,10 @@ const Contacts = ({
   const filterMessages = (
     userId: string,
     userName: string | null,
-    userImage: string | null
   ) => {
     setReceiver({
       receiverId: userId,
       receiverName: userName || '',
-      receiverImage: userImage || ''
     })
   }
 
@@ -121,7 +118,7 @@ const Contacts = ({
                   onClick={() => {
                     if (!isEditMode) {
                       setLayout(true)
-                      filterMessages(user.id, user.name ?? null, user.image ?? null)
+                      filterMessages(user.id, user.name ?? null)
                     }
                   }}
                 >

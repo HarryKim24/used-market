@@ -1,6 +1,5 @@
 import { TConversation, TUserWithChat } from '@/types'
 import React from 'react'
-import Avatar from '../Avatar';
 import { fromNow } from '@/helpers/dayjs';
 import { FaCircle, FaRegCircle } from 'react-icons/fa6';
 
@@ -41,7 +40,9 @@ const ChatUser = ({
           </div>
         )}
         <div>
-          <Avatar src={user.image} />
+          <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-300 text-white font-bold text-sm select-none">
+            {user.name?.charAt(0).toUpperCase() ?? '?'}
+          </div>
         </div>
 
         <div>

@@ -55,17 +55,29 @@ const ProductClient = ({
             </div>
           </div>
         </div>
-        <div className="mt-10 flex justify-between items-center">
-          <div className="text-xl font-bold text-[#1d1d1f]">
-            {product.price.toLocaleString()}원
+          <div className="mt-10 flex justify-between items-center">
+            <div className="text-xl font-bold text-[#1d1d1f]">
+              {product.price.toLocaleString()}원
+            </div>
+          
+            {product.user?.id !== currentUser?.id ? (
+              <div className="w-30">
+                <Button
+                  label="채팅하기"
+                  onClick={() =>
+                    router.push(`/chat?receiverId=${product.user?.id}`)
+                  }
+                />
+              </div>
+            ) : (
+              <div className="w-30">
+                <Button
+                  label="내 프로필"
+                  onClick={() => router.push('/profile')}
+                />
+              </div>
+            )}
           </div>
-          <div className="w-30">
-            <Button
-              label="채팅하기"
-              onClick={() => router.push("/chat")}
-            />
-          </div>
-        </div>
       </div>
     </Container>
   )

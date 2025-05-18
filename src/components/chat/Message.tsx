@@ -1,5 +1,4 @@
 import React from 'react'
-import Avatar from '../Avatar';
 import { fromNow } from '@/helpers/dayjs';
 import Image from 'next/image';
 
@@ -8,14 +7,14 @@ interface MessageProps {
   messageText?: string | null;
   messageImage?: string | null;
   receiverName: string;
-  receiverImage: string;
-  senderImage: string | null;
+  senderName: string;
   time: Date;
 }
 
+
 const Message = ({
   isSender, messageText, messageImage,
-  receiverName, receiverImage, senderImage, time
+  receiverName, senderName, time
 }: MessageProps) => {
 
   return (
@@ -24,7 +23,11 @@ const Message = ({
       style={{ direction: `${isSender ? 'rtl' : 'ltr'}` }}
     >
       <div>
-        <Avatar src={senderImage && isSender ? senderImage : receiverImage} />
+        <div>
+          <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-300 text-white font-bold text-sm select-none">
+            {(isSender ? senderName : receiverName).charAt(0).toUpperCase()}
+          </div>
+        </div>
       </div>
       <div className='flex flex-col items-start justify-center'>
         <div className='flex items-center gap-2 mb-2 text-sm'>

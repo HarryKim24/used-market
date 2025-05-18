@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import HeartButton from "../HeartButton";
 import { fromNow } from "@/helpers/dayjs";
+import { categories } from "@/components/categories/Categories";
 
 interface ProductCardProps {
   data: any;
@@ -12,7 +13,12 @@ interface ProductCardProps {
 }
 
 const ProductCard = ({ data, currentUser }: ProductCardProps) => {
+
   const router = useRouter();
+
+  const categoryLabel =
+  categories.find((cat) => cat.path === data.category)?.label ?? "기타";
+
 
   return (
     <div
@@ -35,7 +41,7 @@ const ProductCard = ({ data, currentUser }: ProductCardProps) => {
         </div>
         <div className="text-center">
           <div className="text-lg font-semibold text-[#1d1d1f]">{data.title}</div>
-          <div className="text-sm text-neutral-500">{data.category}</div>
+          <div className="text-sm text-neutral-500">{categoryLabel}</div>
         </div>
         <div className="text-center space-y-1">
           <div className="text-base text-[#1d1d1f] font-medium">
