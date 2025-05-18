@@ -19,6 +19,8 @@ const ProductCard = ({ data, currentUser }: ProductCardProps) => {
   const categoryLabel =
   categories.find((cat) => cat.path === data.category)?.label ?? "기타";
 
+  const title =
+  data.title.length > 12 ? `${data.title.slice(0, 12)}...` : data.title;
 
   return (
     <div
@@ -39,8 +41,10 @@ const ProductCard = ({ data, currentUser }: ProductCardProps) => {
             <HeartButton productId={data.id} currentUser={currentUser} />
           </div>
         </div>
-        <div className="text-center">
-          <div className="text-lg font-semibold text-[#1d1d1f]">{data.title}</div>
+        <div className="text-center pl-2 pr-2">
+          <div className="text-lg font-semibold text-[#1d1d1f]">
+            {title}
+          </div>
           <div className="text-sm text-neutral-500">{categoryLabel}</div>
         </div>
         <div className="text-center space-y-1">
