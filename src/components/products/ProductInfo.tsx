@@ -1,7 +1,6 @@
 import { User } from '@/types/user'
 import React from 'react'
 import { IconType } from 'react-icons';
-import Avatar from '../Avatar';
 import ProductCategory from './ProductCategory';
 import { formatTime } from '@/helpers/dayjs';
 
@@ -23,7 +22,9 @@ const ProductInfo = ({
     <div>
       <div className='flex flex-col gap-2'>
         <div className='flex items-center gap-2 text-xl font-semibold'>
-          <Avatar src={user?.image} />
+          <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-300 text-white font-bold text-sm select-none">
+            {user?.name?.charAt(0).toUpperCase() ?? '?'}
+          </div>
           <p>{user?.name}</p>
         </div>
         <div className='text-xs text-neutral-500'>

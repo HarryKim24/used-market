@@ -1,6 +1,5 @@
 import { TConversation, TUserWithChat } from '@/types'
 import React from 'react'
-import Avatar from '../Avatar';
 import { fromNow } from '@/helpers/dayjs';
 import { FaCircle, FaRegCircle } from 'react-icons/fa6';
 
