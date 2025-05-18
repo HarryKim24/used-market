@@ -11,7 +11,6 @@ interface ChatProps {
   receiver: {
     receiverId: string
     receiverName: string
-    receiverImage: string
   }
   setLayout: (layout: boolean) => void
 }
@@ -43,7 +42,6 @@ const Chat = ({
             <ChatHeader
               setLayout={setLayout}
               receiverName={receiver.receiverName}
-              receiverImage={receiver.receiverImage}
               lastMessageTime={
                 conversation?.messages
                   .filter((m) => m.receiverId === currentUser.id)
@@ -58,8 +56,6 @@ const Chat = ({
               messageText={message.text}
               messageImage={message.image}
               receiverName={receiver.receiverName}
-              receiverImage={receiver.receiverImage}
-              senderImage={currentUser?.image || null}
               time={message.createdAt}
             />
           ))}

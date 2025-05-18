@@ -16,7 +16,6 @@ const ChatClient = ({ currentUser }: { currentUser?: User | null }) => {
   const [receiver, setReceiver] = useState({
     receiverId: "",
     receiverName: "",
-    receiverImage: "",
   });
   const [layout, setLayout] = useState(false);
 
@@ -35,7 +34,6 @@ const ChatClient = ({ currentUser }: { currentUser?: User | null }) => {
         setReceiver({
           receiverId: foundUser.id,
           receiverName: foundUser.name ?? "",
-          receiverImage: foundUser.image ?? "",
         });
         setLayout(true);
       }

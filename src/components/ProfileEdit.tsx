@@ -113,11 +113,20 @@ const handleDeleteAccount = async () => {
     <div className="w-60 sm:w-120 space-y-6 mx-auto">
       <div>
         <h2 className="text-xl font-semibold mb-2">회원 정보</h2>
-        {!isEditing && <p><span className="font-medium">이름:</span> {currentUser.name}</p>}
-        <p><span className="font-medium">이메일:</span> {currentUser.email}</p>
-        <p><span className="font-medium">가입일:</span> {currentUser.createdAt ? formatTime(currentUser.createdAt) : "정보 없음"}</p>
+        <div className="flex items-center gap-4 mb-4">
+          <div className="w-12 h-12 rounded-full bg-gray-400 flex items-center justify-center text-white font-bold text-lg select-none">
+            {currentUser.name?.charAt(0).toUpperCase()}
+          </div>
+          <div>
+            <p className="text-base font-semibold">{currentUser.name}</p>
+            <p className="text-sm text-gray-600">{currentUser.email}</p>
+          </div>
+        </div>
+        <p className="text-sm text-gray-600">
+          <span className="font-medium">가입일:</span>{' '}
+          {currentUser.createdAt ? formatTime(currentUser.createdAt) : '정보 없음'}
+        </p>
       </div>
-
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         {isEditing && (
           <>

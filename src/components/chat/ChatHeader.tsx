@@ -6,14 +6,12 @@ import { formatTime } from '@/helpers/dayjs'
 interface ChatHeaderProps {
   setLayout: (layout: boolean) => void
   receiverName: string
-  receiverImage: string
   lastMessageTime: Date | undefined
 }
 
 const ChatHeader = ({
   setLayout,
   receiverName,
-  receiverImage,
   lastMessageTime
 }: ChatHeaderProps) => {
   return (
@@ -28,7 +26,9 @@ const ChatHeader = ({
           </button>
         </div>
         <div className="flex items-center gap-[0.6rem]">
-          <Avatar src={receiverImage} />
+          <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-300 text-white font-bold text-sm select-none">
+            {receiverName.charAt(0).toUpperCase()}
+          </div>
           <div>
             <h2 className="text-lg font-semibold">{receiverName}</h2>
             {lastMessageTime && (
