@@ -62,7 +62,9 @@ const ProductClient = ({
           <div className="w-30">
             <Button
               label="채팅하기"
-              onClick={() => router.push("/chat")}
+              onClick={() =>
+                router.push(`/chat?receiverId=${product.user?.id}`)
+              }
             />
           </div>
         </div>
