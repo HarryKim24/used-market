@@ -44,7 +44,7 @@ const Chat = ({
               receiverName={receiver.receiverName}
               lastMessageTime={
                 conversation?.messages
-                  .filter((m) => m.receiverId === currentUser.id)
+                  .filter((m) => m.receiverId === currentUser.id || m.receiverId === receiver.receiverId)
                   .slice(-1)[0]?.createdAt
               }
             />

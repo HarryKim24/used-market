@@ -7,7 +7,10 @@ const Footer = () => {
       <div className="mt-2">
         © 2025 Harry Kim. All rights reserved.
       </div>
-      <div className='mt-2 text-xs'>
+      <div className="mt-2 text-xs">
+        Contact | <a href="mailto:harrykim@example.com" className="underline text-[#0066cc]">tl9434@naver.com</a>
+      </div>
+      <div className='mt-1 text-xs'>
         Project Repository |{" "}
         <a
           href='https://github.com/HarryKim24/used-market'
@@ -17,9 +20,6 @@ const Footer = () => {
         >
           https://github.com/HarryKim24/used-market
         </a>
-      </div>
-      <div className="mt-1 text-xs">
-        Contact | <a href="mailto:harrykim@example.com" className="underline text-[#0066cc]">tl9434@naver.com</a>
       </div>
     </div>
   )
