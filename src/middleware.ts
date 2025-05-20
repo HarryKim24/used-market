@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
 export { default } from 'next-auth/middleware';
 
 export async function middleware(req: NextRequest) {
-  const session = await getToken({ req, secret: process.env.JWT_SECRET });
+  const session = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
   const pathname = req.nextUrl.pathname;
 
   if (pathname.startsWith('/profile') && !session) {
