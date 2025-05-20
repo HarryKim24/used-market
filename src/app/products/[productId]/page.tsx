@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import getCurrentUser from '@/app/actions/getCurrentUser';
 import getProductById, { Params } from '@/app/actions/getProductById'
 import EmptyState from '@/components/EmptyState';
