@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/[...nextauth]/route";
 import clientPromise from "../../../lib/mongodb";
+import { authOptions } from "../../../lib/authOptions";
 
 export async function getSession() {
   return await getServerSession(authOptions);

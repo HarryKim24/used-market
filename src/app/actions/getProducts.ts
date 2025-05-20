@@ -12,7 +12,7 @@ export default async function getProducts(params: ProductsParams = {}) {
       longitude = undefined,
     } = params;
 
-    let query: any = {};
+    const query: any = {};
 
     if (latitude) {
       query.latitude = {
