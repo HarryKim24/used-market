@@ -115,7 +115,6 @@ const ChatInput = ({
           className='hidden'
           ref={imageRef}
           onChange={(e) => {
-            console.log("파일 선택 이벤트 발생");
             previewImage(e, setImagePreview, setImage);
           }}
           accept='image/*'
