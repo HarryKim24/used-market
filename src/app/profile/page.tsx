@@ -1,10 +1,11 @@
-import React from "react";
+export const dynamic = "force-dynamic";
+
 import LocalNav from "@/components/nav/LocalNav";
 import Container from "@/components/Container";
-import getCurrentUser from "../actions/getCurrentUser";
-import getMyProducts from "../actions/getMyProducts";
-import ProfileClient from "@/app/profile/ProfileClient";
-import getFavoriteProducts from '../actions/getFavoriteProducts'
+import getCurrentUser from "@/app/actions/getCurrentUser";
+import getMyProducts from "@/app/actions/getMyProducts";
+import getFavoriteProducts from "@/app/actions/getFavoriteProducts";
+import ProfileClient from "./ProfileClient";
 
 const ProfilePage = async () => {
   const currentUser = await getCurrentUser();
