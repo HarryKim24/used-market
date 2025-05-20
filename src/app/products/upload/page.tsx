@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import LocalNav from "@/components/nav/LocalNav";
+import Textarea from "@/components/Textarea";
 
 const ImageUpload = dynamic(() => import("@/components/ImageUpload"), {
   ssr: false,
@@ -117,7 +118,7 @@ const ProductUploadPage = () => {
           </div>
           <div className="flex flex-col gap-2">
             <h4 className="text-md font-medium">자세한 설명</h4>
-            <Input
+            <Textarea
               id="description"
               label="신뢰할 수 있는 거래를 위해 자세히 적어주세요."
               disabled={isLoading}

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
@@ -17,27 +17,29 @@ const validateEmail = (value: string) =>
 const validatePassword = (value: string) =>
   value.trim() !== "" || "비밀번호를 입력해주세요.";
 
-const LoginPage = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
-  const router = useRouter();
+function ErrorMessageFromParams() {
   const searchParams = useSearchParams();
   const error = searchParams.get("error");
 
-  useEffect(() => {
-    switch (error) {
-      case "CredentialsSignin":
-      case "InvalidCredentials":
-        setErrorMessage("이메일 또는 비밀번호가 올바르지 않습니다.");
-        break;
-      case "MissingCredentials":
-        setErrorMessage("이메일과 비밀번호를 모두 입력해주세요.");
-        break;
-      default:
-        setErrorMessage("");
-    }
-  }, [error]);
-  
+  let message = "";
+  switch (error) {
+    case "CredentialsSignin":
+    case "InvalidCredentials":
+      message = "이메일 또는 비밀번호가 올바르지 않습니다.";
+      break;
+    case "MissingCredentials":
+      message = "이메일과 비밀번호를 모두 입력해주세요.";
+      break;
+  }
+
+  return message ? (
+    <div className="text-md text-red-500 text-center">{message}</div>
+  ) : null;
+}
+
+const LoginPage = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const {
     register,
@@ -54,12 +56,13 @@ const LoginPage = () => {
 
   const onSubmit: SubmitHandler<FieldValues> = async (body) => {
     setIsLoading(true);
-    setErrorMessage("");
-
     try {
-      const data = signIn("credentials", body);
-    } catch (error) {
-      setErrorMessage("로그인 중 오류가 발생했습니다.");
+      await signIn("credentials", {
+        ...body,
+        callbackUrl: "/",
+      });
+    } catch {
+      // fallback error 처리
     } finally {
       setIsLoading(false);
     }
@@ -90,9 +93,9 @@ const LoginPage = () => {
           </Link>
         </div>
 
-        {errorMessage && (
-          <div className="text-md text-red-500 text-center">{errorMessage}</div>
-        )}
+        <Suspense fallback={null}>
+          <ErrorMessageFromParams />
+        </Suspense>
 
         <Input
           id="email"
@@ -104,10 +107,6 @@ const LoginPage = () => {
           required
           validate={validateEmail}
         />
-        {errors.email && (
-          <p className="text-sm text-red-500">{errors.email.message as string}</p>
-        )}
-
         <Input
           id="password"
           label="암호"
@@ -118,9 +117,6 @@ const LoginPage = () => {
           required
           validate={validatePassword}
         />
-        {errors.password && (
-          <p className="text-sm text-red-500">{errors.password.message as string}</p>
-        )}
 
         <Button label="로그인" disabled={isLoading} />
       </form>

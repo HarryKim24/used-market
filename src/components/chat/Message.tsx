@@ -40,11 +40,10 @@ const Message = ({
         {messageImage && (
           <div className='overflow-hidden rounded-4xl max-w-[80%] mb-2'>
             <Image
-              src={messageImage}
+              src={messageImage?.replace(/^http:/, 'https:') ?? ''}
               width={300}
               height={300}
-              alt=''
-
+              alt=""
             />
           </div>
         )}

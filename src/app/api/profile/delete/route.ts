@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { ObjectId } from "mongodb";
 import bcrypt from "bcryptjs";
 import clientPromise from "../../../../../lib/mongodb";
+import { authOptions } from "../../../../../lib/authOptions";
 
 export async function DELETE(req: Request) {
   const session = await getServerSession(authOptions);
