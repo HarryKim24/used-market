@@ -1,27 +1,45 @@
-# 🛍️ 중고장터
+<div align="center">
 
-Next.js 15과 Tailwind CSS를 기반으로 만든 간편하고 직관적인 중고거래 웹 애플리케이션입니다.  
-사용자는 중고 물품을 등록하고, 관심 상품을 저장하며, 다른 사용자와 실시간으로 채팅할 수 있습니다.
+# 🛍️ 중고장터  
+Next.js 15 + Tailwind CSS 기반의 중고거래 플랫폼
+
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js)](https://nextjs.org/)
+[![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-3.x-blue?logo=tailwindcss)](https://tailwindcss.com/)
+[![Deploy-Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?logo=vercel)](https://used-market.vercel.app/)
+
+</div>
+
+---
 
 ## 🔗 링크
 
-👉 바로가기 - https://used-market.vercel.app/
+👉 **[사이트 바로가기](https://used-market.vercel.app/)**
 
-![중고마켓 이미지](https://github.com/user-attachments/assets/d9f24935-dd50-4d71-9be5-e3bb4d8dbb43)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/d9f24935-dd50-4d71-9be5-e3bb4d8dbb43" alt="중고장터 데모 이미지" width="80%" />
+</p>
+
+---
 
 ## ✨ 주요 기능
 
-- 📦 중고 물품 등록, 수정, 삭제
-- 🔍 키워드 기반 검색 및 필터
-- 💬 실시간 채팅
-- ❤️ 관심 상품 등록 및 목록 확인
-- 📱 반응형 UI 지원
+- 📦 **중고 물품 등록 / 수정 / 삭제**
+- 🔍 **키워드 기반 검색 및 필터**
+- 💬 **실시간 채팅** 지원
+- ❤️ **관심 상품 등록 및 목록 확인**
+- 📱 **반응형 UI** (모바일 최적화)
+
+---
 
 ## 🛠 기술 스택
 
-- **Frontend**: [Next.js 15](https://nextjs.org/), [Tailwind CSS](https://tailwindcss.com/)
-- **Database**: (예: MongoDB Atlas)
-- **배포**: Vercel
+| 구분 | 사용 기술 |
+|------|------------|
+| **Frontend** | [Next.js 15](https://nextjs.org/), [Tailwind CSS](https://tailwindcss.com/) |
+| **Database** | MongoDB Atlas |
+| **배포** | [Vercel](https://vercel.com/) |
+
+---
 
 ## 📁 폴더 구조
 
@@ -43,7 +61,9 @@ src/
 ├── middleware.ts           # 인증/리다이렉션 등 미들웨어 처리
 ```
 
-## 👤 제작자
+👤 제작자
 
-- GitHub: HarryKim24
-- Email: tl9434@naver.com
+| 이름        | GitHub                                       | 이메일                                         |
+| --------- | -------------------------------------------- | ------------------------------------------- |
+| Harry Kim | [@HarryKim24](https://github.com/HarryKim24) | [tl9434@naver.com](mailto:tl9434@naver.com) |
+
