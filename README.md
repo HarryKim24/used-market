@@ -25,14 +25,22 @@ Next.js 15과 Tailwind CSS를 기반으로 만든 간편하고 직관적인 중�
 
 ## 📁 폴더 구조
 
-```
+```bash
 src/
-├── app/              # Next.js App Router
-├── components/       # 공통 UI 컴포넌트
-├── features/         # 도메인별 기능 모듈
-├── lib/              # 유틸 함수 및 API 클라이언트
-├── styles/           # 글로벌 스타일
-└── types/            # 타입 정의
+├── app/
+│   ├── (home)/             # 홈 페이지 라우트
+│   ├── actions/            # 서버 액션 및 데이터 처리 함수
+│   ├── api/                # API 라우트
+│   ├── auth/               # 로그인, 회원가입 등 인증 관련
+│   ├── chat/               # 사용자 간 채팅 기능
+│   ├── productcs/          # 상품 상세, 등록, 수정 페이지
+│   ├── profile/            # 프로필 페이지 및 사용자 정보
+│
+├── components/             # 공통 및 페이지 UI 컴포넌트
+├── helpers/                # 날짜/포맷팅 등 유틸 함수
+├── hooks/                  # 커스텀 훅 (useFavorite.ts)
+├── types/                  # TypeScript 타입 정의
+├── middleware.ts           # 인증/리다이렉션 등 미들웨어 처리
 ```
 
 ## 👤 제작자
