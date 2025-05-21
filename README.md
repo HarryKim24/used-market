@@ -33,7 +33,8 @@ Next.js 15 + Tailwind CSS 기반의 중고거래 플랫폼
 | 구분 | 사용 기술 |
 |------|------------|
 | **Frontend** | [Next.js 15](https://nextjs.org/), [Tailwind CSS](https://tailwindcss.com/) |
-| **Database** | MongoDB Atlas |
+| **Database** | MongoDB Atlas, Cloudinary |
+| **지도 API** | [Kakao Maps JavaScript API](https://apis.map.kakao.com/) |
 | **배포** | [Vercel](https://vercel.com/) |
 
 
