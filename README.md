@@ -15,7 +15,7 @@ Next.js 15 + Tailwind CSS 기반의 중고거래 플랫폼
 👉 **[사이트 바로가기](https://used-market.vercel.app/)**
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/d9f24935-dd50-4d71-9be5-e3bb4d8dbb43" alt="중고장터 데모 이미지" width="80%" />
+  <img src="https://github.com/HarryKim24/used-market/raw/main/public/중고마켓-홈.png" width="800">
 </p>
 
 
