@@ -12,12 +12,12 @@ Next.js 15 + Tailwind CSS 기반의 중고거래 플랫폼
 
 ## 🔗 링크
 
-👉 **[사이트 바로가기](https://used-market.vercel.app/)**
+👉 **[사이트 바로가기](https://used-market.vercel.app/)** </br>
+👉 **[프로젝트 문서](https://tl9434.notion.site/248857f73381809db40ae93ce49cce05)**
 
 <p align="center">
   <img src="https://github.com/HarryKim24/used-market/raw/main/public/중고마켓-홈.png" width="800">
 </p>
-
 
 ## ✨ 주요 기능
 
