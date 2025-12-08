@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { previewImage } from '@/helpers/previewImage';
 import { uploadImage } from '@/helpers/uploadImage';
 import React, { FormEvent, useRef, useState } from 'react';

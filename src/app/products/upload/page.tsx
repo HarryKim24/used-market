@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import Button from "@/components/Button";
 import { categories } from "@/components/categories/Categories";
@@ -11,6 +12,7 @@ import React, { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import LocalNav from "@/components/nav/LocalNav";
 import Textarea from "@/components/Textarea";
+import KakaoMap from "@/components/kakao/KakaoMap";
 
 const ImageUpload = dynamic(() => import("@/components/ImageUpload"), {
   ssr: false,
@@ -59,7 +61,7 @@ const ProductUploadPage = () => {
   const latitude = watch("latitude");
   const longitude = watch("longitude");
 
-  const KakaoMap = dynamic(() => import("@/components/kakao/KakaoMap"), {
+  const Map = dynamic(() => import("@/components/kakao/KakaoMap"), {
     ssr: false,
     loading: () => (
       <div
