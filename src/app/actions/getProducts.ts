@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import clientPromise from "../../../lib/mongodb";
 
 export interface ProductsParams {
