@@ -46,16 +46,18 @@ src/
 │   ├── (home)/             # 홈 페이지 라우트
 │   ├── actions/            # 서버 액션 및 데이터 처리 함수
 │   ├── api/                # API 라우트
-│   ├── auth/               # 로그인, 회원가입 등 인증 관련
+│   ├── (auth)/             # 로그인, 회원가입 등 인증 관련
+│   │   ├── login/
+│   │   └── register/          
 │   ├── chat/               # 사용자 간 채팅 기능
-│   ├── productcs/          # 상품 상세, 등록, 수정 페이지
-│   ├── profile/            # 프로필 페이지 및 사용자 정보
-│
-├── components/             # 공통 및 페이지 UI 컴포넌트
-├── helpers/                # 날짜/포맷팅 등 유틸 함수
-├── hooks/                  # 커스텀 훅 (useFavorite.ts)
-├── types/                  # TypeScript 타입 정의
-├── middleware.ts           # 인증/리다이렉션 등 미들웨어 처리
+│   ├── productcs/          # 상품 등록, 수정 페이지
+│   │   ├── [productId]/
+│   │   └── [upload]/         
+│   └── profile/            # 프로필 페이지
+├── components/             # UI 컴포넌트
+├── helpers/                # 유틸 함수
+├── hooks/                  # 커스텀 훅
+└── types/                  # 타입 정의
 ```
 
 ## 👤 제작자
