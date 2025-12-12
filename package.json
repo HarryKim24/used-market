@@ -17,7 +17,7 @@
     "framer-motion": "^12.7.3",
     "mongodb": "^5.9.2",
     "mongoose": "^8.13.2",
-    "next": "^15.3.6",
+    "next": "15.3.8",
     "next-auth": "^4.24.11",
     "next-cloudinary": "^6.16.0",
     "query-string": "^9.1.1",
